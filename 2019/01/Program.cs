@@ -25,12 +25,12 @@ namespace AoC._2019._01
 
             #region Problem
 
-            long tot = 0;
+            long tot = 0L;
             foreach (var mass in norms)
             {
-                long fuel = 0;
+                long fuel = 0L;
                 long fuelfuel = mass;
-                while (fuelfuel > 6)
+                while (fuelfuel >= 9)
                 {
                     var val = fuelfuel / 3 - 2;
                     fuel += val;

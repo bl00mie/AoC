@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AoCUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VM_2019.cs" />
   </ItemGroup>
 </Project>
