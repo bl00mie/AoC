@@ -5,5 +5,8 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="input.txt" />
+  </ItemGroup>
   <Import Project="..\..\AoC\AoC.projitems" Label="Shared" Condition="Exists('..\..\AoC\AoC.projitems')" />
 </Project>
