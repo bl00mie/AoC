@@ -5,7 +5,7 @@ namespace AoC
 {
     public class VM_2019
     {
-        public int p { get; set; }
+        public int p { get; set; } = 0;
         public int[] mem { get; set; }
 
         public Dictionary<int, Func<int[], int, int>> ops { get; set; } = new Dictionary<int, Func<int[], int, int>>()
@@ -19,7 +19,6 @@ namespace AoC
         public VM_2019(int[] memory)
         {
             mem = memory;
-            p = 0;
         }
 
         public void go()
