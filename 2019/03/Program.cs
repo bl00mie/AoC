@@ -7,7 +7,9 @@ namespace AoC._2019._03
 {
     class Program
     {
-        const int S = 20000;
+        static Dictionary<char, int> DX = new Dictionary<char, int>() { { 'R', 1 }, { 'L', -1 }, { 'U', 0 }, { 'D', 0 } };
+        static Dictionary<char, int> DY = new Dictionary<char, int>() { { 'R', 0 }, { 'L', 0 }, { 'U', 1 }, { 'D', -1 } };
+
         static void Main(string[] args)
         {
             #region Template
@@ -19,57 +21,48 @@ namespace AoC._2019._03
 
             #region Problem
 
-            int[,] grid = new int[S,S];
-            int px = S/2, py = px;
-            int D = 0;
+            Dictionary<Tuple<int, int>, int> PA = getPoints(lines[0].Split(","));
+            Dictionary<Tuple<int, int>, int> PB = getPoints(lines[1].Split(","));
 
-            foreach (string val in lines[0].Split(","))
+            int minMD = int.MaxValue;
+            int minMoves = int.MaxValue;
+            foreach (Tuple<int,int> t in PA.Keys)
             {
-                draw(grid, ref px, ref py, ref D, val, true);
-            }
-            px = S/2;
-            py = px;
-            D = 0;
-            List<Tuple<int, int, int>> crosses = new List<Tuple<int, int,int>>();
-            foreach (string val in lines[1].Split(","))
-            {
-                crosses.AddRange(draw(grid, ref px, ref py, ref D, val, false));
+                if (PB.ContainsKey(t))
+                {
+                    int d = Math.Abs(t.Item1) + Math.Abs(t.Item2);
+                    if (d < minMD) minMD = d;
+                    int moves = PA[t] + PB[t];
+                    if (moves < minMoves) minMoves = moves;
+                }
             }
 
-            int minD = int.MaxValue;
-            foreach (Tuple<int,int,int> t in crosses)
-            {
-                //int md = Math.Abs(t.Item1 - 10000) + Math.Abs(t.Item2 - 10000);
-                //if (md < minD)
-                //{
-                //    minMD = md;
-                //}
-                if (t.Item3 < minD) minD = t.Item3;
-            }
-            Console.WriteLine(minD);
+            Console.WriteLine(minMD + " " + minMoves);
+
             #endregion
         }
 
-        static List<Tuple<int,int,int>> draw(int[,] grid, ref int px, ref int py, ref int D, string move, bool mark)
+        static Dictionary<Tuple<int,int>, int> getPoints(string[] moves)
         {
-            List<Tuple<int, int, int>> crosses = new List<Tuple<int, int, int>>();
-            int d = int.Parse(move.Substring(1));
-            int dir = move[0] == 'R' || move[0] == 'U' ? 1 : -1;
-            ref int p = ref move[0] == 'R' || move[0] == 'L' ? ref px : ref py;
-            for (int i=0; i<d; i++)
+            Dictionary<Tuple<int, int>, int> points = new Dictionary<Tuple<int, int>, int>();
+            int x = 0, y = 0;
+            int distance = 0;
+            foreach (string move in moves)
             {
-                p += dir;
-                D++;
-                if (mark)
+                int dx = DX[move[0]];
+                int dy = DY[move[0]];
+                foreach (int i in Enumerable.Range(0, int.Parse(move.Substring(1))))
                 {
-                    grid[px, py] = D;
-                }
-                else if (grid[px, py] != 0) 
-                {
-                    crosses.Add(new Tuple<int, int, int>(px, py, D + grid[px,py]));
+                    distance++;
+                    x += dx; y += dy;
+                    Tuple<int, int> t = new Tuple<int, int>(x, y);
+                    if (!points.ContainsKey(t))
+                    {
+                        points.Add(t, distance);
+                    }
                 }
             }
-            return crosses;
+            return points;
         }
     }
 }
