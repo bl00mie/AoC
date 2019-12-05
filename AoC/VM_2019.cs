@@ -54,8 +54,7 @@ namespace AoC
                 }
             },
             { // jump if zero
-                6, (vm, mode) =>
-                {
+                6, (vm, mode) => {
                     var v1 = param(vm.mem, vm.p, mode, 1);
                     var v2 = param(vm.mem, vm.p, mode, 2);
                     return v1 == 0 ? v2 : vm.p + 3;
