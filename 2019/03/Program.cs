@@ -13,7 +13,7 @@ namespace AoC._2019._03
         {
             #region Template
 
-            var lines = AoCUtil.getAocInput(2019, 3).ToArray<string>();
+            var lines = AoCUtil.GetAocInput(2019, 3).ToArray<string>();
 
             #endregion Template
 

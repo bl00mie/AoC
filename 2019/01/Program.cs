@@ -10,7 +10,7 @@ namespace AoC._2019._01
         {
             #region Template
 
-            var lines = AoCUtil.getAocInput(2019,1);
+            var lines = AoCUtil.GetAocInput(2019,1);
             //var rx = new Regex(@"");
 
             var norms = from L in lines

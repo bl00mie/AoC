@@ -21,7 +21,7 @@ namespace AoC
 		}
 
 
-        public static IEnumerable<string> getAocInput(int year, int day)
+        public static IEnumerable<string> GetAocInput(int year, int day)
         {
             string filepath = string.Format("../../../../../inputs/{0}_{1}", year, day);
             if (!File.Exists(filepath))
@@ -67,7 +67,7 @@ namespace AoC
             return ReadLines(filepath);
         }
 
-        static void printArray(Array a)
+        public static void PrintArray(Array a)
         {
             Console.Write("[ ");
             foreach (var o in a)

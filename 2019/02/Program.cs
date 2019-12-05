@@ -7,7 +7,7 @@ namespace AoC._2019._02
     {
         static void Main(string[] args)
         {
-            var lines = AoCUtil.getAocInput(2019, 2);
+            var lines = AoCUtil.GetAocInput(2019, 2);
 
             int[] initial = lines.Single<string>().Split(",").Select(s => int.Parse(s)).ToArray<int>();
 
@@ -16,7 +16,7 @@ namespace AoC._2019._02
             VM_2019 vm = new VM_2019((int[])initial.Clone());
             vm.mem[1] = 12;
             vm.mem[2] = 2;
-            vm.go();
+            vm.Go();
             Console.WriteLine(vm.mem[0]);
 
             #endregion
@@ -32,7 +32,7 @@ namespace AoC._2019._02
                     vm.mem[1] = i;
                     vm.mem[2] = j;
                     vm.p = 0;
-                    vm.go();
+                    vm.Go();
 
                     if (vm.mem[0] == 19690720)
                     {
