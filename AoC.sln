@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_2019_03", "2019\03\_2019_0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04", "2019\04\04.csproj", "{09FD18C0-824E-4FD3-9FA2-66F12819FE88}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05", "2019\05\05.csproj", "{78F9F563-D29F-44B5-92A9-612E06025EAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{09FD18C0-824E-4FD3-9FA2-66F12819FE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09FD18C0-824E-4FD3-9FA2-66F12819FE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09FD18C0-824E-4FD3-9FA2-66F12819FE88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F9F563-D29F-44B5-92A9-612E06025EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F9F563-D29F-44B5-92A9-612E06025EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F9F563-D29F-44B5-92A9-612E06025EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F9F563-D29F-44B5-92A9-612E06025EAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

@@ -66,5 +66,15 @@ namespace AoC
             }
             return ReadLines(filepath);
         }
+
+        static void printArray(Array a)
+        {
+            Console.Write("[ ");
+            foreach (var o in a)
+            {
+                Console.Write(o + " ");
+            }
+            Console.WriteLine("]");
+        }
     }
 }
