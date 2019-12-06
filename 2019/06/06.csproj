@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>_06</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="..\..\AoC\AoC.projitems" Label="Shared" Condition="Exists('..\..\AoC\AoC.projitems')" />
+</Project>

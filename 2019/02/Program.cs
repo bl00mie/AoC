@@ -14,10 +14,10 @@ namespace AoC._2019._02
             #region Problem Part 1
 
             VM_2019 vm = new VM_2019((int[])initial.Clone());
-            vm.mem[1] = 12;
-            vm.mem[2] = 2;
+            VM_2019.mem[1] = 12;
+            VM_2019.mem[2] = 2;
             vm.Go();
-            Console.WriteLine(vm.mem[0]);
+            Console.WriteLine(VM_2019.mem[0]);
 
             #endregion
 
@@ -28,13 +28,13 @@ namespace AoC._2019._02
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    vm.mem = (int[])initial.Clone();
-                    vm.mem[1] = i;
-                    vm.mem[2] = j;
-                    vm.p = 0;
+                    VM_2019.mem = (int[])initial.Clone();
+                    VM_2019.mem[1] = i;
+                    VM_2019.mem[2] = j;
+                    VM_2019.p = 0;
                     vm.Go();
 
-                    if (vm.mem[0] == 19690720)
+                    if (VM_2019.mem[0] == 19690720)
                     {
                         Console.WriteLine(i * 100 + j);
                         i = 100; j = 100;
