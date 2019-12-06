@@ -10,14 +10,13 @@ namespace AoC._2019._05
             #region Template
 
             var lines = AoCUtil.GetAocInput(2019, 5).ToArray<string>();
-
-            var norms = from L in lines[0].Split(",") select (int.Parse(L));
+            var input = from L in lines[0].Split(",") select (int.Parse(L));
 
             #endregion Template
 
             #region Problem
 
-            VM_2019 vm = new VM_2019(norms.ToArray<int>());
+            VM_2019 vm = new VM_2019(input.ToArray<int>());
 
             vm.ops[3] = (mode) =>
             {

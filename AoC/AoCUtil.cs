@@ -45,7 +45,7 @@ namespace AoC
                     sw = new StreamWriter(filepath);
                     foreach (string line in lines)
                     {
-                        sw.WriteLineAsync(line);
+                        sw.WriteLine(line);
                     }
                 }
                 finally
