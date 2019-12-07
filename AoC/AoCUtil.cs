@@ -26,7 +26,6 @@ namespace AoC
             string filepath = string.Format("../../../../../inputs/{0}_{1}", year, day);
             if (!File.Exists(filepath))
             {
-
                 Stream webStream = null;
                 StreamReader sr = null;
                 StreamWriter sw = null;
