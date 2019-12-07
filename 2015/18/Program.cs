@@ -2,57 +2,133 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AoC._2015._05
+namespace AoC._2015._18
 {
     class Program
     {
+        const int MAX = 100;
+        static char[][] grid;
+        static char[][] newGrid = InitGrid(MAX, false);
+
         static void Main()
         {
-            var input = AoCUtil.GetAocInput(2015, 5).ToArray();
+            var input = AoCUtil.GetAocInput(2015, 18).ToArray();
+            grid = input.Select(x => x.ToCharArray()).ToArray();
+            //PrintGrid();
 
             #region Part 1
 
-            var vowels = new HashSet<char>() { 'a', 'e', 'i', 'o', 'u' };
-            var bad = new HashSet<string>() { "ab", "cd", "pq", "xy" };
-            int nice = 0;
-            foreach(var s in input)
+            for (int i = 0; i < 100; i++)
             {
-                int vc = vowels.Contains(s[0]) ? 1 : 0;
-                int dub = 0;
-                for (int i=1; i<s.Length; i++)
-                {
-                    if (vowels.Contains(s[i])) vc++;
-                    if (s[i] == s[i-1]) dub++;
-                    if (bad.Contains(s.Substring(i-1, 2)))
+                for (int x = 0; x < MAX; x++)
+                    for (int y = 0; y < MAX; y++)
                     {
-                        vc = 0;
-                        break;
+                        togl(x, y);
                     }
-                }
-                if (vc >= 3 && dub >= 1) nice++;
+                grid = newGrid;
+                newGrid = InitGrid(MAX, false);
             }
-            Console.WriteLine(nice);
+            //Console.WriteLine(PrintGrid());
 
             #endregion Part 1
 
-            nice = 0;
-            foreach (var s in input)
-            {
-                bool xyxy = false;
-                bool xyx = false;
-                for (int i=0; i<s.Length-2; i++)
-                {
-                    xyx |= s[i] == s[i + 2];
-                    xyxy |= s.Substring(i + 2).Contains(s.Substring(i, 2));
-                    if (xyx && xyxy) break;
-                }
-                if (xyx && xyxy) nice++;
-            }
-            Console.WriteLine(nice);
 
             #region Part 2
+            grid = input.Select(x => x.ToCharArray()).ToArray();
+            grid[0][0] = '#';
+            grid[0][MAX - 1] = '#';
+            grid[MAX - 1][0] = '#';
+            grid[MAX - 1][MAX - 1] = '#';
+            Console.WriteLine(PrintGrid());
+
+            for (int i = 0; i < 100; i++)
+            {
+                for (int x = 0; x < MAX; x++)
+                    for (int y = 0; y < MAX; y++)
+                    {
+                        if (IsCorner(x, y)) continue;
+                        togl(x, y);
+                    }
+                grid = newGrid;
+                newGrid = InitGrid(MAX, true);
+            }
+            Console.WriteLine(PrintGrid());
+
 
             #endregion
+        }
+
+        static bool IsCorner(int x, int y)
+        {
+            if (x == 0 || x == MAX - 1)
+            {
+                if (y == 0 || y == MAX - 1)
+                    return true;
+            }
+            return false;
+        }
+
+        static char[][] InitGrid(int max, bool corners)
+        {
+            var g = new char[max][];
+            for (int i = 0; i < max; i++)
+            {
+                g[i] = new char[max];
+            }
+            g[0][0] = '#';
+            g[0][MAX - 1] = '#';
+            g[MAX - 1][0] = '#';
+            g[MAX - 1][MAX - 1] = '#';
+
+            return g;
+        }
+
+        static int PrintGrid()
+        {
+            int on = 0;
+            Console.WriteLine("-------");
+            foreach (var row in grid)
+            {
+                foreach (var light in row)
+                {
+                    Console.Write(light);
+                    if (light == '#') on++;
+                }
+                Console.Write("\n");
+            }
+            return on;
+        }
+
+        static int CountAdjacent(int x, int y)
+        {
+            int tot = 0;
+            for (int i = Math.Max(x-1, 0); i < Math.Min(MAX,Math.Max(0,x+2)); i++)
+            {
+                for (int j = Math.Max(y-1, 0); j < Math.Min(MAX, Math.Max(0, y+2)); j++)
+                {
+                    if (i == x && j == y) continue;
+                    if (grid[i][j] == '#') tot++;
+                }
+            }
+            return tot;
+        }
+        static void togl(int x, int y)
+        {
+            int adj = CountAdjacent(x, y);
+            if (grid[x][y] == '#')
+            {
+                if (adj != 2 && adj != 3)
+                    newGrid[x][y] = '.';
+                else
+                    newGrid[x][y] = '#';
+            }
+            else
+            {
+                if (adj == 3)
+                    newGrid[x][y] = '#';
+                else
+                    newGrid[x][y] = '.';
+            }
         }
     }
 }
