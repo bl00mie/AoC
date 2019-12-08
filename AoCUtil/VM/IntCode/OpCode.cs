@@ -8,8 +8,8 @@
         Out =  4,
         JNZ =  5,
         JZ =   6,
-        LT =  7,
-        EQ =  8,
+        LT =   7,
+        EQ =   8,
         Halt = 99
     }
 }

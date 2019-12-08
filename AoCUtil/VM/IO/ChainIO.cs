@@ -9,12 +9,12 @@ namespace AoC.VM
         public Queue<int> inputs = new Queue<int>();
         public ChainIO next;
 
-        public int input()
+        public int Input()
         {
             return inputs.Count == 0 ? 0 : inputs.Dequeue();
         }
 
-        public void output(int val)
+        public void Output(int val)
         {
             lastOutput = val;
             next.inputs.Enqueue(val);

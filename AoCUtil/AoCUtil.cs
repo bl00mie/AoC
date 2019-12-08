@@ -18,7 +18,15 @@ namespace AoC
 
 		public static IEnumerable<string> ReadLines(string fileName)
 		{
-			return ReadLines(new StreamReader(fileName));
+            var sr = new StreamReader(fileName);
+            try
+            {
+                return ReadLines(new StreamReader(fileName));
+            }
+            finally
+            {
+                sr.Dispose();
+            }
 		}
 
 
@@ -30,9 +38,10 @@ namespace AoC
                 Stream webStream = null;
                 StreamReader sr = null;
                 StreamWriter sw = null;
+                WebClient client = null;
                 try
                 {
-                    var client = new WebClient();
+                    client = new WebClient();
 
                     client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                     client.Headers.Add(HttpRequestHeader.Cookie, string.Format("session={0}", sessionCookie));
@@ -52,15 +61,19 @@ namespace AoC
                 {
                     if (sr != null)
                     {
-                        sr.Close();
+                        sr.Dispose();
                     }
                     if (sw != null)
                     {
-                        sw.Close();
+                        sw.Dispose();
                     }
                     if (webStream != null)
                     {
-                        webStream.Close();
+                        webStream.Dispose();
+                    }
+                    if (client != null)
+                    {
+                        client.Dispose();
                     }
                 }
             }

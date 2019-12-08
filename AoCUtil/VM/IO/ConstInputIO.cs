@@ -5,22 +5,22 @@ namespace AoC.VM
 {
     public class ConstInputIO : IOContext
     {
-        public int inVal;
-        public Queue<int> outputs = new Queue<int>();
+        public int InVal;
+        public Queue<int> Outputs = new Queue<int>();
 
         public ConstInputIO(int val)
         {
-            inVal = val;
+            InVal = val;
         }
 
-        public int input()
+        public int Input()
         {
-            return inVal;
+            return InVal;
         }
 
-        public void output(int val)
+        public void Output(int val)
         {
-            outputs.Enqueue(val);
+            Outputs.Enqueue(val);
             Console.WriteLine(val);
         }
     }

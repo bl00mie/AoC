@@ -18,13 +18,13 @@ namespace AoC._2019._05
             #region Problem
 
             VM_2019<ConstInputIO> vm = new VM_2019<ConstInputIO>(input.ToArray<int>());
-            vm.io = new ConstInputIO(1);
+            vm.IO = new ConstInputIO(1);
 
             Console.Write("Part 1: ");
             vm.Go();
 
             Console.Write("Part 2: ");
-            vm.io.inVal = 5;
+            vm.IO.InVal = 5;
             vm.Reset();
             vm.Go();
 

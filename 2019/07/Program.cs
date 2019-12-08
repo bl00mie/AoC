@@ -5,7 +5,7 @@ using AoC.VM.IntCode;
 
 namespace AoC._2019._07
 {
-    class Program : ProgramBase
+    public sealed class Program : ProgramBase
     {
         static void Main()
         {
@@ -19,18 +19,18 @@ namespace AoC._2019._07
             #region Part 1
 
             VM_2019<PhaseIO> vm = new VM_2019<PhaseIO>(input);
-            vm.io = new PhaseIO();
+            vm.IO = new PhaseIO();
             int max = int.MinValue;
             foreach (var perm in perms)
             {
-                vm.io.Reset();
-                vm.io.phases = perm.ToArray();
+                vm.IO.Reset();
+                vm.IO.phases = perm.ToArray();
                 for(int i=0; i<5; i++) 
                 {
                     vm.Reset();
                     vm.Go();
                 }
-                var output = vm.io.outputs.Dequeue();
+                var output = vm.IO.outputs.Dequeue();
                 if (output > max) max = output;
             }
             Ans(max.ToString());
@@ -44,13 +44,13 @@ namespace AoC._2019._07
             for (int i=4; i>=0; i--)
             {
                 vms[i] = new VM_2019<ChainIO>(input, true);
-                vms[i].io = new ChainIO();
+                vms[i].IO = new ChainIO();
                 if (vms[(i+1)%5] != null)
                 {
-                    vms[i].io.next = vms[(i + 1) % 5].io;
+                    vms[i].IO.next = vms[(i + 1) % 5].IO;
                 }
             }
-            vms[4].io.next = vms[0].io;
+            vms[4].IO.next = vms[0].IO;
 
             max = int.MinValue;
             foreach (var perm in perms)
@@ -58,8 +58,8 @@ namespace AoC._2019._07
                 var pa = perm.ToArray();
                 for (int i=0; i<5; i++)
                 {
-                    vms[i].io.inputs.Clear();
-                    vms[i].io.inputs.Enqueue(pa[i]);
+                    vms[i].IO.inputs.Clear();
+                    vms[i].IO.inputs.Enqueue(pa[i]);
                     vms[i].Reset();
                 }
                 for (int i = 0; ; i = (i+1)%5)
@@ -89,12 +89,12 @@ namespace AoC._2019._07
             inCount = 0;
         }
 
-        public void output(int val)
+        public void Output(int val)
         {
             outputs.Enqueue(val);
         }
 
-        public int input()
+        public int Input()
         {
             if (inCount % 2 == 0)
             {
