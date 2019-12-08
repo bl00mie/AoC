@@ -125,5 +125,11 @@ namespace AoC
                 }
             }
         }
+
+        public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source)
+        {
+            Random rnd = new Random();
+            return source.OrderBy<T, int>((item) => rnd.Next());
+        }
     }
 }
