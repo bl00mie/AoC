@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AoC.VM
 {
@@ -20,7 +21,7 @@ namespace AoC.VM
         public void output(int val)
         {
             outputs.Enqueue(val);
-            //Console.WriteLine(val);
+            Console.WriteLine(val);
         }
     }
 }

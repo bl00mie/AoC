@@ -6,5 +6,7 @@
 
   <ItemGroup>
     <Folder Include="VM\" />
+    <Folder Include="VM\IntCode\" />
+    <Folder Include="VM\IO\" />
   </ItemGroup>
 </Project>

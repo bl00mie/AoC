@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AoC.VM;
+using AoC.VM.IntCode;
 
 namespace AoC._2019._02
 {
@@ -14,7 +15,7 @@ namespace AoC._2019._02
 
             #region Problem Part 1
 
-            VM_2019 vm = new VM_2019((int[])initial.Clone());
+            VM_2019<IOContext> vm = new VM_2019<IOContext>((int[])initial.Clone());
             vm.mem[1] = 12;
             vm.mem[2] = 2;
             vm.Go();

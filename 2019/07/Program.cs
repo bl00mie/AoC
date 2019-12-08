@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AoC.VM;
+using AoC.VM.IntCode;
 
 namespace AoC._2019._07
 {
@@ -16,41 +18,39 @@ namespace AoC._2019._07
 
             #region Part 1
 
-            VM_2019 vm = new VM_2019(input);
-            PhaseIO io = new PhaseIO();
-            vm.io = io;
+            VM_2019<PhaseIO> vm = new VM_2019<PhaseIO>(input);
+            vm.io = new PhaseIO();
             int max = int.MinValue;
             foreach (var perm in perms)
             {
-                io.Reset();
-                io.phases = perm.ToArray();
+                vm.io.Reset();
+                vm.io.phases = perm.ToArray();
                 for(int i=0; i<5; i++) 
                 {
                     vm.Reset();
                     vm.Go();
                 }
-                var output = io.outputs.Dequeue();
+                var output = vm.io.outputs.Dequeue();
                 if (output > max) max = output;
             }
-            Log(max.ToString());
+            Ans(max.ToString());
 
             #endregion Part 1
 
             #region Part 2
 
             perms = AoCUtil.GetPermutations<int>(Enumerable.Range(5, 5));
-            VM_2019[] vms = new VM_2019[5];
+            VM_2019<ChainIO>[] vms = new VM_2019<ChainIO>[5];
             for (int i=4; i>=0; i--)
             {
-                vms[i] = new VM_2019(input, true);
-                ChainIO cio = new ChainIO();
-                vms[i].io = cio;
+                vms[i] = new VM_2019<ChainIO>(input, true);
+                vms[i].io = new ChainIO();
                 if (vms[(i+1)%5] != null)
                 {
-                    cio.next = (ChainIO)vms[(i + 1) % 5].io;
+                    vms[i].io.next = vms[(i + 1) % 5].io;
                 }
             }
-            ((ChainIO)vms[4].io).next = (ChainIO)vms[0].io;
+            vms[4].io.next = vms[0].io;
 
             max = int.MinValue;
             foreach (var perm in perms)
@@ -58,8 +58,8 @@ namespace AoC._2019._07
                 var pa = perm.ToArray();
                 for (int i=0; i<5; i++)
                 {
-                    ((ChainIO)vms[i].io).inputs.Clear();
-                    ((ChainIO)vms[i].io).inputs.Enqueue(pa[i]);
+                    vms[i].io.inputs.Clear();
+                    vms[i].io.inputs.Enqueue(pa[i]);
                     vms[i].Reset();
                 }
                 for (int i = 0; ; i = (i+1)%5)
@@ -71,9 +71,37 @@ namespace AoC._2019._07
                     }
                 }
             }
-            Log(max);
+            Ans(max, 2);
 
             #endregion Part 2
+        }
+    }
+
+    public class PhaseIO : IOContext
+    {
+        public int[] phases;
+        public Queue<int> outputs = new Queue<int>();
+        public int inCount;
+
+        public void Reset()
+        {
+            outputs.Clear();
+            inCount = 0;
+        }
+
+        public void output(int val)
+        {
+            outputs.Enqueue(val);
+        }
+
+        public int input()
+        {
+            if (inCount % 2 == 0)
+            {
+                return phases[inCount++ / 2];
+            }
+            inCount++;
+            return outputs.Count == 0 ? 0 : outputs.Dequeue();
         }
     }
 }
