@@ -6,5 +6,7 @@
     <RootNamespace>_04</RootNamespace>
   </PropertyGroup>
 
-  <Import Project="..\..\AoC\AoC.projitems" Label="Shared" Condition="Exists('..\..\AoC\AoC.projitems')" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\AoCUtil\AoCUtil.csproj" />
+  </ItemGroup>
 </Project>
