@@ -20,7 +20,7 @@ namespace AoC.VM
         public int p { get; set; } = 0;
         public int[] mem { get; set; }
         private static int[] initialMem { get; set; }
-        public IO io;
+        public IOContext io;
         public bool pauseOnOutput = false;
 
         public Dictionary<int, Func<int[], VM_2019, int>> ops { get; set; } = new Dictionary<int, Func<int[], VM_2019, int>>()
@@ -130,54 +130,7 @@ namespace AoC.VM
         }
     }
 
-    public interface IO
-    {
-        void output(int val);
-        int input();
-    }
-
-    public class ConstInputIO : IO
-    {
-        public int inVal;
-        public Queue<int> outputs = new Queue<int>();
-
-        public ConstInputIO(int val)
-        {
-            inVal = val;
-        }
-
-        public int input()
-        {
-            return inVal;
-        }
-
-        public void output(int val)
-        {
-            outputs.Enqueue(val);
-            Console.WriteLine(val);
-        }
-    }
-
-    public class ChainIO : IO
-    {
-        public static int lastOutput;
-
-        public Queue<int> inputs = new Queue<int>();
-        public ChainIO next;
-
-        public int input()
-        {
-            return inputs.Count == 0 ? 0 : inputs.Dequeue();
-        }
-
-        public void output(int val)
-        {
-            lastOutput = val;
-            next.inputs.Enqueue(val);
-        }
-    }
-
-    public class PhaseIO : IO
+    public class PhaseIO : IOContext
     {
         public int[] phases;
         public Queue<int> outputs = new Queue<int>();

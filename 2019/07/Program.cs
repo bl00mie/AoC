@@ -9,7 +9,7 @@ namespace AoC._2019._07
         {
             #region input
 
-            var input = AoCUtil.GetAocInput(2019, 07).First().Split(',').Select(int.Parse).ToArray();
+            var input = AoCUtil.GetAocInput(2019, 07).First().GetInts().ToArray();
             var perms = AoCUtil.GetPermutations<int>(Enumerable.Range(0,5));
 
             #endregion input
@@ -32,7 +32,7 @@ namespace AoC._2019._07
                 var output = io.outputs.Dequeue();
                 if (output > max) max = output;
             }
-            log(max.ToString());
+            Log(max.ToString());
 
             #endregion Part 1
 
@@ -71,7 +71,7 @@ namespace AoC._2019._07
                     }
                 }
             }
-            log(max);
+            Log(max);
 
             #endregion Part 2
         }
