@@ -2,7 +2,8 @@
 {
     public interface IOContext
     {
-        void Output(int val);
-        int Input();
+        void Output(long val);
+        long Input();
+        void Reset();
     }
 }

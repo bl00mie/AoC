@@ -1,19 +1,17 @@
-﻿using System;
-namespace AoC.VM.IntCode
+﻿namespace AoC.VM.IntCode
 {
+    public delegate int OpF(ref long a, ref long b, ref long c);
     public class Op
     {
         public OpCode OpCode { get; }
         public int Argc { get;  }
-        public Action<int,int,int> Action { get; }
-        public int? RefI { get; }
+        public OpF F { get; }
 
-        public Op(OpCode opCode, int argc, int? refI, Action<int,int,int> action)
+        public Op(OpCode opCode, int argc, OpF f)
         {
             OpCode = opCode;
             Argc = argc;
-            RefI = refI;
-            Action = action;
+            F = f;
         }
     }
 }

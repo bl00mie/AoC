@@ -1,23 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AoC.VM
 {
     public class ChainIO : IOContext
     {
-        public static int lastOutput;
+        public static long lastOutput;
 
-        public Queue<int> inputs = new Queue<int>();
-        public ChainIO next;
+        public Queue<long> Inputs = new Queue<long>();
+        public ChainIO Next;
+        public int Id;
+        public bool Debug;
 
-        public int Input()
+        public long Input()
         {
-            return inputs.Count == 0 ? 0 : inputs.Dequeue();
+            return Inputs.Count == 0 ? 0 : Inputs.Dequeue();
         }
 
-        public void Output(int val)
+        public void Output(long val)
         {
             lastOutput = val;
-            next.inputs.Enqueue(val);
+            if (Debug) Console.WriteLine(string.Format("[{0}]: {1} -> {2}", Id, val, Next.Id));
+            Next.Inputs.Enqueue(val);
+        }
+
+        public void Reset()
+        {
+            if (Debug) Console.WriteLine(string.Format("Resetting IO {0}", Id));
+            Inputs.Clear();
+            lastOutput = 0;
         }
     }
 }

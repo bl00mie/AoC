@@ -11,11 +11,11 @@ namespace AoC._2019._02
         {
             var lines = AoCUtil.GetAocInput(2019, 2);
 
-            int[] initial = lines.Single<string>().Split(",").Select(s => int.Parse(s)).ToArray<int>();
+            long[] initial = lines.Single<string>().Split(",").Select(s => long.Parse(s)).ToArray<long>();
 
             #region Problem Part 1
 
-            VM_2019<IOContext> vm = new VM_2019<IOContext>((int[])initial.Clone());
+            VM_2019<IOContext> vm = new VM_2019<IOContext>((long[])initial.Clone());
             vm.Mem[1] = 12;
             vm.Mem[2] = 2;
             vm.Go();
@@ -30,7 +30,7 @@ namespace AoC._2019._02
             {
                 for (int j = 0; j < 100; j++)
                 {
-                    vm.Mem = (int[])initial.Clone();
+                    vm.Mem = (long[])initial.Clone();
                     vm.Mem[1] = i;
                     vm.Mem[2] = j;
                     vm.P = 0;

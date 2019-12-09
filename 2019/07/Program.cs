@@ -11,7 +11,7 @@ namespace AoC._2019._07
         {
             #region input
 
-            var input = AoCUtil.GetAocInput(2019, 07).First().GetInts().ToArray();
+            var input = AoCUtil.GetAocInput(2019, 07).First().GetLongs().ToArray();
             var perms = AoCUtil.GetPermutations<int>(Enumerable.Range(0,5));
 
             #endregion input
@@ -20,7 +20,7 @@ namespace AoC._2019._07
 
             VM_2019<PhaseIO> vm = new VM_2019<PhaseIO>(input);
             vm.IO = new PhaseIO();
-            int max = int.MinValue;
+            long max = long.MinValue;
             foreach (var perm in perms)
             {
                 vm.IO.Reset();
@@ -44,22 +44,22 @@ namespace AoC._2019._07
             for (int i=4; i>=0; i--)
             {
                 vms[i] = new VM_2019<ChainIO>(input, true);
-                vms[i].IO = new ChainIO();
+                vms[i].IO = new ChainIO() { Id = i + 1 };
                 if (vms[(i+1)%5] != null)
                 {
-                    vms[i].IO.next = vms[(i + 1) % 5].IO;
+                    vms[i].IO.Next = vms[(i + 1) % 5].IO;
                 }
             }
-            vms[4].IO.next = vms[0].IO;
+            vms[4].IO.Next = vms[0].IO;
 
-            max = int.MinValue;
+            max = long.MinValue;
             foreach (var perm in perms)
             {
                 var pa = perm.ToArray();
                 for (int i=0; i<5; i++)
                 {
-                    vms[i].IO.inputs.Clear();
-                    vms[i].IO.inputs.Enqueue(pa[i]);
+                    vms[i].IO.Inputs.Clear();
+                    vms[i].IO.Inputs.Enqueue(pa[i]);
                     vms[i].Reset();
                 }
                 for (int i = 0; ; i = (i+1)%5)
@@ -80,7 +80,7 @@ namespace AoC._2019._07
     public class PhaseIO : IOContext
     {
         public int[] phases;
-        public Queue<int> outputs = new Queue<int>();
+        public Queue<long> outputs = new Queue<long>();
         public int inCount;
 
         public void Reset()
@@ -89,12 +89,12 @@ namespace AoC._2019._07
             inCount = 0;
         }
 
-        public void Output(int val)
+        public void Output(long val)
         {
             outputs.Enqueue(val);
         }
 
-        public int Input()
+        public long Input()
         {
             if (inCount % 2 == 0)
             {

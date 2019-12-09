@@ -11,13 +11,13 @@ namespace AoC._2019._05
         {
             #region Template
 
-            var input = AoCUtil.GetAocInput(2019, 5).First().GetInts();
+            var input = AoCUtil.GetAocInput(2019, 5).First().GetLongs();
 
             #endregion Template
 
             #region Problem
 
-            VM_2019<ConstInputIO> vm = new VM_2019<ConstInputIO>(input.ToArray<int>());
+            VM_2019<ConstInputIO> vm = new VM_2019<ConstInputIO>(input.ToArray());
             vm.IO = new ConstInputIO(1);
 
             Console.Write("Part 1: ");
