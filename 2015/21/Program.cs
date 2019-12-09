@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AoC._Year._Day
+namespace AoC._2015._21
 {
     class Program : ProgramBase
     {
@@ -10,7 +10,7 @@ namespace AoC._Year._Day
         {
             #region input
             
-            var input = AoCUtil.GetAocInput(Year, Day);
+            var input = AoCUtil.GetAocInput(2015, 21);
 
             #endregion
 

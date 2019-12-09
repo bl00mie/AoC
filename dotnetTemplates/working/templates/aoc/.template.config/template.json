@@ -31,6 +31,12 @@
       "datatype": "text",
       "replaces": "Day",
       "fileRename": "Day"
+    },
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
     }
   },
   "postActions": [

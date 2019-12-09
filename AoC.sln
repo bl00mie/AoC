@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2019_09", "2019\09\2019_09.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2019_10", "2019\10\2019_10.csproj", "{6C2130CB-22F5-4E7D-8DFC-DB78BFC5AC26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2015_21", "2015\21\2015_21.csproj", "{B3CC6FCA-3A1C-45F9-A152-BB3DB48FAC5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,10 @@ Global
 		{6C2130CB-22F5-4E7D-8DFC-DB78BFC5AC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C2130CB-22F5-4E7D-8DFC-DB78BFC5AC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C2130CB-22F5-4E7D-8DFC-DB78BFC5AC26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3CC6FCA-3A1C-45F9-A152-BB3DB48FAC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CC6FCA-3A1C-45F9-A152-BB3DB48FAC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CC6FCA-3A1C-45F9-A152-BB3DB48FAC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CC6FCA-3A1C-45F9-A152-BB3DB48FAC5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
