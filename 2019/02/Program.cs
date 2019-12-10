@@ -5,7 +5,7 @@ using AoC.VM.IntCode;
 
 namespace AoC._2019._02
 {
-    class Program
+    class Program : ProgramBase
     {
         static void Main(string[] args)
         {
@@ -19,7 +19,7 @@ namespace AoC._2019._02
             vm.Mem[1] = 12;
             vm.Mem[2] = 2;
             vm.Go();
-            Console.WriteLine(vm.Mem[0]);
+            Ans(vm.Mem[0]);
 
             #endregion
 
@@ -38,11 +38,11 @@ namespace AoC._2019._02
 
                     if (vm.Mem[0] == 19690720)
                     {
-                        Console.WriteLine(i * 100 + j);
-                        i = 100; j = 100;
+                        Ans(i * 100 + j, 2);
+                        goto end;
                     }
                 }
-            }
+            }end:;
 
             #endregion
         }

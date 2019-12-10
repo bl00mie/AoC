@@ -7,6 +7,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <StartAction>Project</StartAction>
+    <StartWorkingDirectory>.</StartWorkingDirectory>
     <ExternalConsole>false</ExternalConsole>
   </PropertyGroup>
 

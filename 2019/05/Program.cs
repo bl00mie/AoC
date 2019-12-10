@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AoC.VM;
 using AoC.VM.IntCode;
 
 namespace AoC._2019._05
 {
-    class Program
+    class Program : ProgramBase
     {
         static void Main()
         {
@@ -20,13 +19,14 @@ namespace AoC._2019._05
             VM_2019<ConstInputIO> vm = new VM_2019<ConstInputIO>(input.ToArray());
             vm.IO = new ConstInputIO(1);
 
-            Console.Write("Part 1: ");
             vm.Go();
+            Ans(vm.IO.Outputs.Last());
 
-            Console.Write("Part 2: ");
             vm.IO.InVal = 5;
             vm.Reset();
+            vm.IO.Reset();
             vm.Go();
+            Ans(vm.IO.Outputs.Last());
 
             #endregion
         }

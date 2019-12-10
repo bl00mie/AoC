@@ -30,9 +30,14 @@ namespace AoC
 		}
 
 
-        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = "53616c7465645f5fd766bf5e9d9f033ef0f7c8aa656e2ef5063f45bb08566b8840fc11e5666dd297e585d62a10c139c6")
+        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie=null)
         {
-            string filepath = string.Format("../../../../../inputs/{0}_{1}", year, day);
+            if (sessionCookie == null)
+            {
+                sessionCookie = ReadLines("../../session_cookie").First();
+            }
+
+            string filepath = string.Format("../../inputs/{0}_{1}", year, day);
             if (!File.Exists(filepath))
             {
                 Stream webStream = null;

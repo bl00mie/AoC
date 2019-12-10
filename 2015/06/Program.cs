@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace AoC._2015._05
@@ -10,7 +9,7 @@ namespace AoC._2015._05
         delegate void Op(int[,] grid, int x, int y);
         static void Main()
         {
-            var input = AoCUtil.GetAocInput(2015, 7).ToArray();
+            var input = AoCUtil.GetAocInput(2015, 6).ToArray();
 
             Dictionary<char, Op> ops = new Dictionary<char, Op>()
             {

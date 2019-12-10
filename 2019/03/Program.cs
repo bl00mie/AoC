@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace AoC._2019._03
 {
-    class Program
+    class Program : ProgramBase
     {
         static readonly Dictionary<char, int> DX = new Dictionary<char, int>() { { 'R', 1 }, { 'L', -1 }, { 'U', 0 }, { 'D', 0 } };
         static readonly Dictionary<char, int> DY = new Dictionary<char, int>() { { 'R', 0 }, { 'L', 0 }, { 'U', 1 }, { 'D', -1 } };
 
-        static void Main(string[] args)
+        static void Main()
         {
             #region Template
 

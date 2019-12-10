@@ -1,10 +1,9 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace AoC._2015._04
 {
-    class Program
+    class Program: ProgramBase
     {
         static void Main(string[] args)
         {
@@ -19,9 +18,10 @@ namespace AoC._2015._04
                 byte[] hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input + l));
                 if (hash[0] == 0 && hash[1] == 0 && hash[2]>>4 == 0)
                 {
-                    Console.WriteLine(l);
+                    Ans(l);
                     break;
                 }
+                l++;
             }
 
             #endregion Part 1
@@ -33,9 +33,10 @@ namespace AoC._2015._04
                 byte[] hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input + l));
                 if (hash[0] == 0 && hash[1] == 0 && hash[2] == 0)
                 {
-                    Console.WriteLine(l);
+                    Ans(l, 2);
                     break;
                 }
+                l++;
             }
 
             #endregion

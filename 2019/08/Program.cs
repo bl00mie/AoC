@@ -40,6 +40,7 @@ namespace AoC._2019._08
 
             #endregion Part 1
 
+            Ans("", 2);
             #region Part 2
             for (int y = 0; y < Y; y++)
             {
