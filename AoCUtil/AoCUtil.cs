@@ -137,5 +137,23 @@ namespace AoC
             return source.OrderBy<T, int>((item) => rnd.Next());
         }
 
+
+        public static ulong GCD(ulong a, ulong b)
+        {
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
+            }
+
+            return a == 0 ? b : a;
+        }
+
+        public static ulong LCM(ulong a, ulong b)
+        {
+            return a / GCD(a, b) * b;
+        }
     }
 }
