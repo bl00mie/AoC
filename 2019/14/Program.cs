@@ -27,56 +27,48 @@ namespace AoC._2019._14
             #endregion
 
             #region Part 1
+            Dictionary<string, long> surplus = new Dictionary<string, long>();
 
-            Dictionary<string, long> leftovers = new Dictionary<string, long>();
-
-            void reset() { leftovers = new Dictionary<string, long>(); foreach (var formula in formulae) leftovers[formula.Key] = 0; }
+            void reset() { surplus = new Dictionary<string, long>(); foreach (var formula in formulae) surplus[formula.Key] = 0; }
             reset();
 
             long make(string target, long needed)
             {
-                if (leftovers[target] >= needed)
+                if (surplus[target] >= needed)
                 {
-                    leftovers[target] -= needed;
+                    surplus[target] -= needed;
                     return 0;
                 }
-                var formula = formulae[target];
-                long times = (long)Math.Ceiling((needed - leftovers[target]) * 1.0 / formula.outputCount);
-                leftovers[target] += times * formula.outputCount - needed;
+                var (outputCount, requirements) = formulae[target];
+                var times = (long)Math.Ceiling((needed - surplus[target]) * 1.0 / outputCount);
+                surplus[target] += times * outputCount - needed;
 
                 long tot = 0;
-                foreach (var req in formula.requirements)
-                {
-                    if (req.name == "ORE") tot += times * req.count;
+                foreach (var (count, name) in requirements)
+                    if (name == "ORE") tot += times * count;
                     else
-                    {
-                        tot += make(req.name, times * req.count);
-                    }
-                }
+                        tot += make(name, times * count);
                 return tot;
             }
             Ans(make("FUEL", 1));
             #endregion Part 1
 
             #region Part 2
-
+            var targetOre = 1000000000000L;
             var lo = 0L;
-            var hi = (long)1e8;
+            var hi = (long)4e6;
             while (lo < hi)
             {
                 reset();
                 long mid = (lo + hi) / 2;
                 long ore = make("FUEL", mid);
-                Console.Write(mid);
-                Console.Write("->");
-                Console.WriteLine(ore);
-                if (ore > 1000000000000L)
-                    hi = mid - 1;
-                else if (ore < 1000000000000)
+                Log("{0} fuel uses {1} ore", mid, ore);
+                if (ore > targetOre)
+                    hi = mid-1;
+                else if (ore < targetOre)
                     lo = mid+1;
             }
-
-            Ans(lo, 2);
+            Ans2(lo);
             #endregion
         }
     }
