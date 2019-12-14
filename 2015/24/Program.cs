@@ -8,42 +8,49 @@ namespace AoC._2015._24
     {
         static int W;
         static int bags;
+        static long minQE = long.MaxValue;
         static void Main()
         {
             #region input
 
-            var input = AoCUtil.GetAocInput(2015, 24).Select(int.Parse).Reverse().ToHashSet();
+            var input = AoCUtil.GetAocInput(2015, 24).Select(int.Parse).ToList();
 
             #endregion
 
             #region Part 1
-
-            W = input.Sum() / bags;
             bags = 3;
-            divy(input);
+            W = input.Sum() / bags;
+            Divy(input, 0, W, 1, 0, 6);
 
-            Ans("");
+            Ans(minQE);
             #endregion Part 1
 
             #region Part 2
+            minQE = long.MaxValue;
 
-            Ans("", 2);
+            bags = 4;
+            W = input.Sum() / bags;
+            Divy(input, 0, W, 1, 0, 5);
+
+            Ans2(minQE);
             #endregion
         }
 
-        public static bool divy(ISet<int> items, int filled = 0)
+        public static long Divy(List<int> items, int pos, int w, long qe, int sz, int maxSz)
         {
-            int i = 4;
-            bool done=false;
-            while (!done)
+            if (sz > maxSz) return long.MaxValue;
+            if (w == 0)
             {
-
+                if (qe < minQE) minQE = qe;
+                return qe;
             }
-        }
+            else if (w < 0 || pos == items.Count)
+                return long.MaxValue;
 
-        public static IEnumerable<ISet<int>> comboSums(ISet<int> items, int sum, int? len)
-        {
+            var included = Divy(items, pos + 1, w - items[pos], qe * items[pos], sz + 1, maxSz);
+            var notIncluded = Divy(items, pos + 1, w, qe, sz, maxSz);
 
+            return Math.Min(included, notIncluded);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 
 namespace AoC
 {
@@ -21,11 +22,11 @@ namespace AoC
             var sr = new StreamReader(fileName);
             try
             {
-                return ReadLines(new StreamReader(fileName));
+                return ReadLines(sr);
             }
             finally
             {
-                sr.Dispose();
+                //sr.Dispose();
             }
 		}
 
@@ -54,7 +55,7 @@ namespace AoC
 
                     webStream = client.OpenRead(inputUrl);
                     sr = new StreamReader(webStream);
-                    var lines = ReadLines(sr).ToArray<string>();
+                    var lines = ReadLines(sr).ToArray();
 
                     sw = new StreamWriter(filepath);
                     foreach (string line in lines)
@@ -87,12 +88,12 @@ namespace AoC
 
         public static string StringifyArray(Array a)
         {
-            string s = "[ ";
+            StringBuilder sb = new StringBuilder(a.Length * 20);
+            sb.Append("[ ");
             foreach (var item in a)
-            {
-                s += item.ToString() + " ";
-            }
-            return s + " ]";
+                sb.AppendFormat("{0} ", item);
+            sb.Append(" ]");
+            return sb.ToString();
         }
 
         public static IEnumerable<IEnumerable<T>> GetPermutationsRecursive<T>(IEnumerable<T> list, int length)
@@ -116,11 +117,11 @@ namespace AoC
             {
                 if (pos >= curitems.Count())
                 {
-                    if (stack.Count() == 0) yield break;
-                    else if (curitems.Count() == 0) yield return acc;
+                    if (!stack.Any()) yield break;
+                    if (!curitems.Any()) yield return acc;
 
                     (curitems, pos, acc) = stack.Peek();
-                    pos = pos + 1;
+                    pos += 1;
                     stack = stack.Pop();
                 }
                 else
@@ -131,10 +132,48 @@ namespace AoC
             }
         }
 
+        public static IEnumerable<IList<T>> GetVariations<T>(IList<T> offers, int length)
+        {
+            var startIndices = new int[length];
+            var variationElements = new HashSet<T>();
+
+            while (startIndices[0] < offers.Count)
+            {
+                var variation = new List<T>(length);
+                var valid = true;
+                for (int i = 0; i < length; ++i)
+                {
+                    var element = offers[startIndices[i]];
+                    if (variationElements.Contains(element))
+                    {
+                        valid = false;
+                        break;
+                    }
+                    variation.Add(element);
+                    variationElements.Add(element);
+                }
+                if (valid)
+                    yield return variation;
+
+                startIndices[length - 1]++;
+                for (int i = length - 1; i > 0; --i)
+                {
+                    if (startIndices[i] >= offers.Count)
+                    {
+                        startIndices[i] = 0;
+                        startIndices[i - 1]++;
+                    }
+                    else
+                        break;
+                }
+                variationElements.Clear();
+            }
+        }
+
         public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source)
         {
             Random rnd = new Random();
-            return source.OrderBy<T, int>((item) => rnd.Next());
+            return source.OrderBy((item) => rnd.Next());
         }
 
 
