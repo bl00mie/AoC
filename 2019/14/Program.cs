@@ -61,7 +61,7 @@ namespace AoC._2019._14
             #region Part 2
 
             var lo = 0L;
-            var hi = 1000000000000L;
+            var hi = (long)1e8;
             while (lo < hi)
             {
                 reset();
@@ -73,7 +73,7 @@ namespace AoC._2019._14
                 if (ore > 1000000000000L)
                     hi = mid - 1;
                 else if (ore < 1000000000000)
-                    lo = mid;
+                    lo = mid+1;
             }
 
             Ans(lo, 2);
