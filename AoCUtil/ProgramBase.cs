@@ -1,10 +1,14 @@
 ﻿using System;
+using AoCUtil;
 
 namespace AoC
 {
     public abstract class ProgramBase
     {
-        public static void Ans(object o, int part = 1) => Console.WriteLine(string.Format("Part {0}: {1}", part, o.ToString()));
+        public static void Ans(object o, int part = 1) {
+            Console.WriteLine(string.Format("Part {0}: {1}", part, o.ToString()));
+            Clipboard.Copy(o.ToString());
+        }
         public static void Ans2(object o) => Ans(o, 2);
 
         public static void Log(object o) => Console.WriteLine(o.ToString());
