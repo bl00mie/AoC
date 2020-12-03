@@ -17,4 +17,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Mac" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="RegExtract" Version="0.9.1" />
+  </ItemGroup>
 </Project>

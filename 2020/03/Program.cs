@@ -10,20 +10,41 @@ namespace AoC._2020._03
         {
             #region input
             
-            var input = AoCUtil.GetAocInput(2020, 02);
+            var input = AoCUtil.GetAocInput(2020, 03).ToList();
 
             #endregion
 
             #region Part 1
 
-            Ans("");
+            int hit = traverse(input, (3, 1));
+
+            Ans(hit);
             #endregion Part 1
 
             #region Part 2
 
-            Ans("asdf", 2);
+            long mul = 1;
+            (int x, int y)[] slopes = new[]
+            {
+                (1,1), (3,1), (5,1), (7,1), (1,2)
+            };
+
+            foreach (var slope in slopes)
+                mul *= traverse(input, slope);
+
+            Ans(mul, 2);
             #endregion
         }
+
+        static int traverse( List<String> map, (int dx, int dy) slope)
+        {
+            int hit = 0;
+            for (int y = slope.dy, x = slope.dx; y < map.Count; y += slope.dy, x = (x + slope.dx) % map[0].Length)
+                if (map[y][x] == '#') hit++;
+            return hit;
+        }
+
     }
+
 }
 

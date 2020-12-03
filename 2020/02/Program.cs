@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using RegExtract;
 
 namespace AoC._2020._02
 {
@@ -20,19 +18,15 @@ namespace AoC._2020._02
             int good2 = 0;
             foreach (var s in input)
             {
-                var sa = s.Split(" ");
-                var l = sa[1][0];
-                var sa2 = sa[0].Split("-");
-                var lo = int.Parse(sa2[0]);
-                var hi = int.Parse(sa2[1]);
+                (int lo, int hi, char valid, string passwd) = s.Extract<(int, int, char, string)>(@"^(\d+)-(\d+) (.): (.+)$");
 
                 int count = 0;
-                foreach (char c in sa[2])
-                    if (c == l)
+                foreach (char c in passwd)
+                    if (c == valid)
                         count++;
                 if (count <= hi && count >= lo) good++;
 
-                good2 += (sa[2][lo - 1] == l) ^ (sa[2][hi - 1] == l) ? 1 : 0;
+                good2 += (passwd[lo - 1] == valid) ^ (passwd[hi - 1] == valid) ? 1 : 0;
             }
 
             Ans(good);
@@ -41,7 +35,7 @@ namespace AoC._2020._02
 
             #region Part 2
 
-            //Ans(good2, 2);
+            Ans(good2, 2);
             #endregion
         }
     }
