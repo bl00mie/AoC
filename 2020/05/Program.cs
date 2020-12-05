@@ -15,14 +15,13 @@ namespace AoC._2020._05
             var s = new HashSet<int>();
             foreach (var line in input)
             {
-                var v = 64 << 3;
-                int val = 0;
+                var v = 512;
+                var val = 0;
                 foreach (var c in line)
                 {
                     if (c == 'B' || c == 'R') val += v;
                     v >>= 1;
                 }
-
                 s.Add(val);
             }
             var ordered = s.OrderBy(x => x);
