@@ -16,7 +16,7 @@ namespace AoC._2020._03
 
             #region Part 1
 
-            int hit = traverse(input, (3, 1));
+            int hit = treeverse(input, (3, 1));
 
             Ans(hit);
             #endregion Part 1
@@ -30,13 +30,13 @@ namespace AoC._2020._03
             };
 
             foreach (var slope in slopes)
-                mul *= traverse(input, slope);
+                mul *= treeverse(input, slope);
 
             Ans(mul, 2);
             #endregion
         }
 
-        static int traverse( List<String> map, (int dx, int dy) slope)
+        static int treeverse( List<String> map, (int dx, int dy) slope)
         {
             int hit = 0;
             for (int y = slope.dy, x = slope.dx; y < map.Count; y += slope.dy, x = (x + slope.dx) % map[0].Length)
