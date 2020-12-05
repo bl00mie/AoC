@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace AoC._2020._05
@@ -16,8 +15,14 @@ namespace AoC._2020._05
             var s = new HashSet<int>();
             foreach (var line in input)
             {
-                var bits = line.Select(x => "FL".Contains(x) ? '0' : '1');
-                int val = Convert.ToInt32(string.Join("", bits), 2);
+                var v = 64 << 3;
+                int val = 0;
+                foreach (var c in line)
+                {
+                    if (c == 'B' || c == 'R') val += v;
+                    v >>= 1;
+                }
+
                 s.Add(val);
             }
             var ordered = s.OrderBy(x => x);
