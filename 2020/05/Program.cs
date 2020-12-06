@@ -30,7 +30,7 @@ namespace AoC._2020._05
             #endregion Part 1
 
             #region Part 2
-            Ans(ordered.First(x => !s.Contains(x+1)) + 1 , 2);
+            Ans2(ordered.First(x => !s.Contains(x+1)) + 1);
             #endregion
         }
     }

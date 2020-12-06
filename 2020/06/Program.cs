@@ -21,8 +21,7 @@ namespace AoC._2020._06
                 if ("".Equals(line))
                 {
                     tot += qns.Count();
-                    foreach (var n in qns.Values)
-                        if (n == ppl) tot2++;
+                    tot2 += qns.Values.Where(x => x == ppl).Count();
                     qns = new();
                     ppl = 0;
                 }
@@ -35,7 +34,7 @@ namespace AoC._2020._06
                 }
             }
             Ans(tot);
-            Ans(tot2,2);
+            Ans2(tot2);
         }
     }
 }
