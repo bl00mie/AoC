@@ -10,9 +10,7 @@ namespace AoC._Year._Day
         static void Main()
         {
             #region input
-            
             var input = AoCUtil.GetAocInput(Year, Day);
-
             #endregion
 
             #region Part 1
@@ -22,7 +20,7 @@ namespace AoC._Year._Day
 
             #region Part 2
 
-            Ans("", 2);
+            //Ans("", 2);
             #endregion
         }
     }

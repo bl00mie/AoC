@@ -7,9 +7,7 @@ namespace AoC._2020._02
         static void Main()
         {
             #region input
-            
             var input = AoCUtil.GetAocInput(2020, 02);
-
             #endregion
 
             #region Part 1
