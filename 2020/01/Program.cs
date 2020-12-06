@@ -18,10 +18,9 @@ namespace AoC._2020._01
                         done1 = true;
                         Ans(x * y);
                     }
-                    else if (x + y < 2020)
+                    else if (x + y < 2020 && !done2)
                         foreach (var z in input)
-                            if (done2) break;
-                            else if (x + y + z == 2020)
+                            if (x + y + z == 2020)
                             {
                                 done2 = true;
                                 Ans2(x * y * z);
