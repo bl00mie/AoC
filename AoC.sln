@@ -77,6 +77,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_05", "2020\05\2020_05.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_06", "2020\06\2020_06.csproj", "{32704B25-CD56-4B44-9F02-C33BB8CE3904}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_07", "2020\07\2020_07.csproj", "{0074A97E-D23B-4B3E-A92F-024A5079A36A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -235,6 +237,10 @@ Global
 		{32704B25-CD56-4B44-9F02-C33BB8CE3904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32704B25-CD56-4B44-9F02-C33BB8CE3904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32704B25-CD56-4B44-9F02-C33BB8CE3904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
