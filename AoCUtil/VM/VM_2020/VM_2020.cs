@@ -16,9 +16,9 @@ namespace AoCUtil.VM.VM_2020
         {
             Ops = new[]
             {
-                new Op("nop", (ref int a) => { return 1; }),
-                new Op("acc", (ref int a) => { ACC += a; return 1; }),
-                new Op("jmp", (ref int a) => { return a; }),
+                new Op("nop", 1, (ref int a, ref int b, ref int c) => { return 1; }),
+                new Op("acc", 1, (ref int a, ref int b, ref int c) => { ACC += a; return 1; }),
+                new Op("jmp", 1, (ref int a, ref int b, ref int c) => { return a; }),
 
             }.ToDictionary(op => op.instruction);
 
