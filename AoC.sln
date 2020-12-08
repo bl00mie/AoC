@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_06", "2020\06\2020_06.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_07", "2020\07\2020_07.csproj", "{0074A97E-D23B-4B3E-A92F-024A5079A36A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2020_08", "2020\08\2020_08.csproj", "{AC7606AA-40AB-4254-BA88-E1E433615C1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -241,6 +243,10 @@ Global
 		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0074A97E-D23B-4B3E-A92F-024A5079A36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC7606AA-40AB-4254-BA88-E1E433615C1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC7606AA-40AB-4254-BA88-E1E433615C1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC7606AA-40AB-4254-BA88-E1E433615C1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC7606AA-40AB-4254-BA88-E1E433615C1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
