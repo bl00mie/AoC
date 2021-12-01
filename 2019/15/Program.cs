@@ -125,7 +125,7 @@ namespace AoC._2019._15
             visited.Clear();
             visited.Add((0, 0));
             backtrack.Clear();
-            x=0,y = 0;
+            x = 0; y = 0;
         }
     }
 }

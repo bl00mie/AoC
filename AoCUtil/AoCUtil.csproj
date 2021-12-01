@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -14,11 +14,6 @@
     <Folder Include="VM\VM_2020\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Xamarin.Mac" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="RegExtract" Version="0.9.10" />
+    <PackageReference Include="RegExtract" Version="1.0.17" />
   </ItemGroup>
 </Project>

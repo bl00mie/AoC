@@ -4,7 +4,9 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AoC
 {
@@ -19,68 +21,39 @@ namespace AoC
 
 		public static IEnumerable<string> ReadLines(string fileName)
 		{
-            var sr = new StreamReader(fileName);
-            try
+            using (var sr = new StreamReader(fileName))
             {
                 return ReadLines(sr);
             }
-            finally
-            {
-                //sr.Dispose();
-            }
 		}
 
+        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null)
+        {
+            return GetAocInputAsync(year, day, sessionCookie).Result;
+        }
 
-        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie=null)
+        public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie=null)
         {
             if (sessionCookie == null)
             {
                 sessionCookie = ReadLines("../../session_cookie").First();
             }
 
-            string filepath = string.Format("../../inputs/{0}_{1}", year, day);
+            string filepath = $"../../inputs/{year}_{day}";
             if (!File.Exists(filepath))
             {
-                Stream webStream = null;
-                StreamReader sr = null;
-                StreamWriter sw = null;
-                WebClient client = null;
-                try
+                var baseAddress = new Uri($"https://adventofcode.com/{year}/day/{day}/input");
+                var cookieContainer = new CookieContainer();
+                using var handler = new HttpClientHandler() { CookieContainer = cookieContainer };
+                using var client = new HttpClient(handler) { BaseAddress = baseAddress };
+                client.DefaultRequestHeaders.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                cookieContainer.Add(baseAddress, new Cookie("session", sessionCookie));
+                var response = await client.GetAsync(baseAddress);
+                if (response.IsSuccessStatusCode)
                 {
-                    client = new WebClient();
-
-                    client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                    client.Headers.Add(HttpRequestHeader.Cookie, string.Format("session={0}", sessionCookie));
-                    string inputUrl = string.Format("https://adventofcode.com/{0}/day/{1}/input", year, day);
-
-                    webStream = client.OpenRead(inputUrl);
-                    sr = new StreamReader(webStream);
-                    var lines = ReadLines(sr).ToArray();
-
-                    sw = new StreamWriter(filepath);
-                    foreach (string line in lines)
-                    {
-                        sw.WriteLine(line);
-                    }
-                }
-                finally
-                {
-                    if (sr != null)
-                    {
-                        sr.Dispose();
-                    }
-                    if (sw != null)
-                    {
-                        sw.Dispose();
-                    }
-                    if (webStream != null)
-                    {
-                        webStream.Dispose();
-                    }
-                    if (client != null)
-                    {
-                        client.Dispose();
-                    }
+                    using var writer = new StreamWriter(filepath);
+                    writer.Write(response.Content);
+                    writer.Flush();
                 }
             }
             return ReadLines(filepath);

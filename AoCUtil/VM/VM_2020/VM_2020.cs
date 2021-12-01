@@ -44,7 +44,7 @@ namespace AoCUtil.VM.VM_2020
                     seen.Add(IP);
                 }
                 (string instr, int val) = code[IP];
-                IP += Ops[instr].F(ref val);
+                //IP += Ops[instr].F(ref val);
             }
         }
     }
