@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -28,9 +29,8 @@ namespace AoC._2015._01
                     firstBasement = i+1;
                 }
             }
-
-            Console.WriteLine(floor);
-            Console.WriteLine(firstBasement);
+            Debug.WriteLine(floor);
+            Debug.WriteLine(firstBasement);
 
             #endregion Problem
         }

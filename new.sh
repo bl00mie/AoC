@@ -10,9 +10,9 @@ day=$1
 if [ $# -gt 1 ]; then 
     year=$2
 else
-    year=2020
+    year=2021
 fi
 
 cd $year
-dotnet new aoc -o $day -d $day -y $year
+dotnet new aoc -o $day --day $day --year $year
 dotnet restore $day

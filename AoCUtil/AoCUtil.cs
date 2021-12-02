@@ -36,7 +36,11 @@ namespace AoC
         {
             if (sessionCookie == null)
             {
-                sessionCookie = ReadLines("../../session_cookie").First();
+                if (!File.Exists("../../session_cookie"))
+                {
+                    throw new FileNotFoundException("Couldn't locate session_cookie file. Aborting");
+                }
+                sessionCookie = File.ReadLines("../../session_cookie").First();
             }
 
             string filepath = $"../../inputs/{year}_{day}";
@@ -52,11 +56,11 @@ namespace AoC
                 if (response.IsSuccessStatusCode)
                 {
                     using var writer = new StreamWriter(filepath);
-                    writer.Write(response.Content);
+                    writer.Write(await response.Content.ReadAsStringAsync());
                     writer.Flush();
                 }
             }
-            return ReadLines(filepath);
+            return File.ReadLines(filepath);
         }
 
         public static string StringifyArray(Array a)

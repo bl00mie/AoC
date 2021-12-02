@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,9 +6,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <StartAction>Project</StartAction>
     <StartWorkingDirectory>.</StartWorkingDirectory>
     <ExternalConsole>false</ExternalConsole>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\AoCUtil\AoCUtil.csproj" />
   </ItemGroup>
