@@ -405,3 +405,6 @@ ASALocalRun/
 .localhistory/
 
 session_cookie
+
+.vscode
+.vscode/*
