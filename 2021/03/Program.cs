@@ -15,7 +15,8 @@ namespace AoC._2021._03
             var gamma = 0;
             var epsilon = 0;
             var mul = 1;
-            for (int x = input[0].Length - 1; x >= 0; x--)
+            var bits = input[0].Length;
+            for (int x = bits - 1; x >= 0; x--)
             {
                 if (Ones(input, x).Count() > input.Length / 2.0)
                     gamma += mul;
@@ -25,12 +26,11 @@ namespace AoC._2021._03
             }
 
             Ans(gamma * epsilon);
-
             #endregion Part 1
 
             #region Part 2
             IEnumerable<string> o2 = input.ToArray(), co2 = input.ToArray();
-            for (int x = 0; x < input[0].Length; x++)
+            for (int x = 0; x < bits; x++)
             {
                 if (o2.Count() > 1)
                 {
@@ -55,4 +55,3 @@ namespace AoC._2021._03
         }
     }
 }
-
