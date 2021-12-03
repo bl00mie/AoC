@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AoC
@@ -16,6 +17,11 @@ namespace AoC
         public static IEnumerable<double> GetDoubles(this string value)
         {
             return value.Split(',').Select(double.Parse);
+        }
+
+        public static int Int(this string value, int radix = 10)
+        {
+            return Convert.ToInt32(value, radix);
         }
     }
 }
