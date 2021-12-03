@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using AoC.Sub;
 
 namespace AoC._2021._03
 {
@@ -12,46 +12,12 @@ namespace AoC._2021._03
             #endregion
 
             #region Part 1
-            var gamma = 0;
-            var epsilon = 0;
-            var mul = 1;
-            var bits = input[0].Length;
-            for (int x = bits - 1; x >= 0; x--)
-            {
-                if (Ones(input, x).Count() > input.Length / 2.0)
-                    gamma += mul;
-                else
-                    epsilon += mul;
-                mul *= 2;
-            }
-
-            Ans(gamma * epsilon);
+            Ans(Diagnostics.PowerConsumption(input));
             #endregion Part 1
 
             #region Part 2
-            IEnumerable<string> o2 = input.ToArray(), co2 = input.ToArray();
-            for (int x = 0; x < bits; x++)
-            {
-                if (o2.Count() > 1)
-                {
-                    var ones = Ones(o2, x);
-                    o2 = ones.Count() >= o2.Count() / 2.0 ? ones : o2.Except(ones);
-                }
-
-                if (co2.Count() > 1)
-                {
-                    var ones = Ones(co2, x);
-                    co2 = ones.Count() < co2.Count() / 2.0 ? ones : co2.Except(ones);
-                }
-            }
-
-            Ans(o2.First().Int(2) * co2.First().Int(2), 2);
+            Ans(Diagnostics.LifeSupportRating(input));
             #endregion
-        }
-
-        static IEnumerable<string> Ones(IEnumerable<string> strs, int x)
-        {
-            return strs.Where(d => d[x] == '1');
         }
     }
 }
