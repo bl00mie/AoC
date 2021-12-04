@@ -37,7 +37,7 @@ namespace AoC._2021._04
                     if (won[i])
                         continue;
                     Mark(cards[i], ball);
-                    if ((sum = Winner(cards[i], called)) >= 0)
+                    if ((sum = Winner(cards[i])) >= 0)
                     {
                         won[i] = true;
                         if (winnerCount++ == 0)
@@ -61,7 +61,7 @@ namespace AoC._2021._04
                         card[i][j] = -1;
         }
 
-        static int Winner(int[][] card, List<int> balls)
+        static int Winner(int[][] card)
         {
             for(int i=0; i<5; i++)
                 if (!card[i].Any(d => d != -1) || !card.Select(d => d[i]).Any(d => d != -1))
@@ -70,4 +70,3 @@ namespace AoC._2021._04
         }
     }
 }
-
