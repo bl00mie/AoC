@@ -20,6 +20,6 @@ namespace AoC
 
         public static void WL() => Debug.WriteLine(string.Empty);
         public static void WL(object o) => Debug.WriteLine(o.ToString());
-        public static void WL(string template, params object[] os) => Debug.Write(string.Format(template, os));
+        public static void WL(string template, params object[] os) => Debug.WriteLine(string.Format(template, os));
     }
 }
