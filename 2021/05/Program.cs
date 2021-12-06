@@ -31,8 +31,8 @@ namespace AoC._2021._05
                 var dy = vent.y2 - vent.y1;
                 if (dx == 0 || dy == 0 || Math.Abs(dy) == Math.Abs(dy))
                 {
-                    var xinc = dx < 0 ? -1 : dx == 0 ? 0 : 1;
-                    var yinc = dy < 0 ? -1 : dy == 0 ? 0 : 1;
+                    var xinc = Math.Sign(dx);
+                    var yinc = Math.Sign(dy);
                     for (int x = vent.x1, y = vent.y1; x - xinc != vent.x2 || y - yinc != vent.y2; x += xinc, y += yinc)
                     {
                         grid2[x, y]++;
