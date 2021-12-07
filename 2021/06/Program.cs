@@ -15,7 +15,7 @@ namespace AoC._2021._06
             #endregion
 
             #region Part 1
-            for (int _ = 0; _ < 80; _++)
+            for (int j = 0; j < 80; j++)
             {
                 var newFish = buckets[0];
                 for (int i = 0; i < 8; i++)
@@ -27,7 +27,7 @@ namespace AoC._2021._06
             #endregion Part 1
 
             #region Part 2
-            for (int _ = 80; _ < 256; _++)
+            for (int j = 80; j < 256; j++)
             {
                 var newFish = buckets[0];
                 for (int i = 0; i < 8; i++)
