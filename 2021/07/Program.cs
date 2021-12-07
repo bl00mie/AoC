@@ -7,11 +7,11 @@ namespace AoC._2021._07
     {
         static void Main()
         {
-            var input = AoCUtil.GetAocInput(2021, 07).First().GetLongs();
+            var input = AoCUtil.GetAocInput(2021, 07).First().GetInts();
             var r = input.Max();
-            var best = long.MaxValue;
-            var best2 = long.MaxValue;
-            for (long i=input.Min(); i<r; i++)
+            var best = int.MaxValue;
+            var best2 = int.MaxValue;
+            for (var i=input.Min(); i<r; i++)
             {
                 var distances = input.Select(x => Math.Abs(x - i));
                 var tot = distances.Sum();
