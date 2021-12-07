@@ -6,11 +6,11 @@ namespace AoC
 {
     public static class StringExtensions
     {
-        public static IEnumerable<int> GetInts(this string value) => value.Split(',').Select(int.Parse);
+        public static IEnumerable<int> GetInts(this string value, char delim = ',') => value.Split(delim).Select(int.Parse);
         
-        public static IEnumerable<long> GetLongs(this string value) => value.Split(',').Select(long.Parse);
+        public static IEnumerable<long> GetLongs(this string value, char delim = ',') => value.Split(delim).Select(long.Parse);
         
-        public static IEnumerable<double> GetDoubles(this string value) => value.Split(',').Select(double.Parse);
+        public static IEnumerable<double> GetDoubles(this string value, char delim = ',') => value.Split(delim).Select(double.Parse);
 
         public static int Int(this string value, int radix = 10) => Convert.ToInt32(value, radix);
 
