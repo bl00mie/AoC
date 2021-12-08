@@ -2,18 +2,18 @@
 using System.Diagnostics;
 using AoCUtil;
 using System.Collections.Generic;
-using System;
 
 namespace AoC
 {
     public abstract class ProgramBase
     {
-        protected static DateTime startTime = DateTime.UtcNow;
+        public static Stopwatch Stopwatch { get; set; } = new Stopwatch();
 
         public static void Ans(string s, int part = 1) {
-            var delta = (DateTime.UtcNow - startTime).TotalMilliseconds;
-            Debug.WriteLine($"Part {part}: {s} ({delta} ms)");
+            Stopwatch.Stop();
+            Debug.WriteLine($"Part {part}: {s} ({Stopwatch.ElapsedMilliseconds} ms)");
             Clipboard.Copy(s);
+            Stopwatch.Restart();
         }
 
         public static void Ans<T>(T answer, int part = 1) => Ans(answer.ToString(), part);

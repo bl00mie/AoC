@@ -10,9 +10,19 @@ namespace AoC._Year._Day
         static void Main()
         {
             #region input
-            var input = AoCUtil.GetAocInput(Year, Day);
+            #region Stopwatch 
+            Stopwatch.Start();
             #endregion
 
+            var input = AoCUtil.GetAocInput(Year, Day);
+            
+            #region Stopwatch
+            Stopwatch.Stop();
+            WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");
+            Stopwatch.Restart();
+            #endregion
+            #endregion
+            
             #region Part 1
 
             Ans("");
