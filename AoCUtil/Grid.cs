@@ -3,18 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AoC
 {
     public class Grid<T> : IEnumerable<(Point p, T v)>
     {
         private ImmutableDictionary<Point, T> grid;
-        private Stack<ImmutableDictionary<Point, T>> history = new();
-
-        public int Height { get; private set; }
-        public int Width { get; private set; }
+        
+        public Stack<ImmutableDictionary<Point, T>> History { get; } = new();
+        public int Height { get; }
+        public int Width { get; }
 
         public Grid(IEnumerable<IEnumerable<T>> input)
         {
@@ -43,7 +41,7 @@ namespace AoC
 
             set
             {
-                history.Push(grid);
+                History.Push(grid);
                 grid = new Dictionary<Point, T>(grid) { [p] = value }.ToImmutableDictionary();
             }
         }
@@ -79,6 +77,17 @@ namespace AoC
             return neighbors;
         }
 
+        public void Render(string delim = "")
+        {
+            for (int y = 0; y<Width; y++)
+            {
+                T[] row = new T[Width];
+                for (int x = 0; x < Height; x++)
+                    row[x] = grid[new(x, y)];
+                Console.WriteLine(String.Join(delim, row));
+            }
+            Console.WriteLine();
+        }
     }
 
     public struct Point
@@ -110,6 +119,14 @@ namespace AoC
             this.dx = dx;
             this.dy = dy;
         }
+
+        public GridVector(Point p1, Point p2)
+        {
+            dx = p1.x - p2.x;
+            dy = p1.y - p2.y;
+        }
+
+        public int GridMagnitude => dx + dy;
     }
 
     public static class Grid

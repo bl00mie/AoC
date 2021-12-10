@@ -24,7 +24,7 @@ namespace AoC._2021._09
             #endregion
 
             #region Part 1
-            var lows = grid.Where(loc => !grid.Neighbors(loc.p, Grid.NESW).Where(n => n.v <= loc.v).Any());
+            var lows = grid.Where(loc => !grid.Neighbors(loc.p, Grid.NESW, (byte mine, byte theirs) => mine >= theirs).Any());
             Ans(lows.Sum(loc => loc.v + 1));
             #endregion Part 1
 
@@ -48,7 +48,7 @@ namespace AoC._2021._09
                     newNeighbors = newNeighbors.Except(basinNeighbors).ToHashSet();
                 }
 
-                return basinNeighbors.Count();
+                return basinNeighbors.Count;
             }).ToList();
             basins.Sort();
             Ans(basins[^1] * basins[^2] * basins[^3], 2);
