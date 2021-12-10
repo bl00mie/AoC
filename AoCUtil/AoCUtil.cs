@@ -92,7 +92,7 @@ namespace AoC
 
             while (true)
             {
-                if (pos >= curitems.Count())
+                if (pos >= curitems.Count)
                 {
                     if (!stack.Any()) yield break;
                     if (!curitems.Any()) yield return acc;
@@ -149,7 +149,7 @@ namespace AoC
 
         public static IEnumerable<T> Shuffle<T>(IEnumerable<T> source)
         {
-            Random rnd = new Random();
+            var rnd = new Random();
             return source.OrderBy((item) => rnd.Next());
         }
 
@@ -172,37 +172,4 @@ namespace AoC
             return a / GCD(a, b) * b;
         }
     }
-
-    //    public delegate bool NeighborCheck<T>(T mine, T theirs);
-
-    //    public static bool AlwaysPass<T>(T mine, T theirs) => true;
-
-    //    public static IEnumerable<(int x, int y, T val)> Neighbors<T>(T[][] grid, int x, int y, Directions dir, NeighborCheck<T> check)
-    //    {
-    //        if (check == null)
-    //            check = AlwaysPass<T>;
-
-    //        var neighbors = new List<(int x,int y, T val)>();
-    //        var v = grid[x][y];
-    //        if (dir == Directions.All || dir == Directions.NoDiag)
-    //        {
-    //            if (y != 0 && check(v, grid[y - 1][x]))
-    //                neighbors.Add((y - 1, x, grid[y-1][x]));
-    //            if (y < grid.Length - 1 && check(v, grid[y + 1][x]))
-    //                neighbors.Add((y + 1, x, grid[y + 1][x]));
-    //            if (x != 0 && check(v, grid[y][x-1]))
-    //                neighbors.Add((y, x, grid[y][x-1]));
-    //            if (x < grid[0].Length - 1 && check(v, grid[y][x+1]))
-    //                neighbors.Add((y, x+1, grid[y][x+1]));
-    //        }
-    //    }
-    //}
-
-    
-    //public enum Directions
-    //{
-    //    NoDiag,
-    //    Diag,
-    //    All
-    //}
 }
