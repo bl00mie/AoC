@@ -62,7 +62,7 @@ namespace AoC._2019._14
                 reset();
                 long mid = (lo + hi) / 2;
                 long ore = make("FUEL", mid);
-                Log("{0} fuel uses {1} ore", mid, ore);
+                //Log("{0} fuel uses {1} ore", mid, ore);
                 if (ore > targetOre)
                     hi = mid-1;
                 else if (ore < targetOre)

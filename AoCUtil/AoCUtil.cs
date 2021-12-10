@@ -12,27 +12,27 @@ namespace AoC
 {
     public static class AoCUtil
     {
-		public static IEnumerable<string> ReadLines(StreamReader streamReader)
-		{
-			string line;
-			while ((line = streamReader.ReadLine()) != null)
-				yield return line;
-		}
+        public static IEnumerable<string> ReadLines(StreamReader streamReader)
+        {
+            string line;
+            while ((line = streamReader.ReadLine()) != null)
+                yield return line;
+        }
 
-		public static IEnumerable<string> ReadLines(string fileName)
-		{
+        public static IEnumerable<string> ReadLines(string fileName)
+        {
             using (var sr = new StreamReader(fileName))
             {
                 return ReadLines(sr);
             }
-		}
+        }
 
         public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null)
         {
             return GetAocInputAsync(year, day, sessionCookie).Result;
         }
 
-        public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie=null)
+        public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie = null)
         {
             if (sessionCookie == null)
             {
@@ -172,4 +172,37 @@ namespace AoC
             return a / GCD(a, b) * b;
         }
     }
+
+    //    public delegate bool NeighborCheck<T>(T mine, T theirs);
+
+    //    public static bool AlwaysPass<T>(T mine, T theirs) => true;
+
+    //    public static IEnumerable<(int x, int y, T val)> Neighbors<T>(T[][] grid, int x, int y, Directions dir, NeighborCheck<T> check)
+    //    {
+    //        if (check == null)
+    //            check = AlwaysPass<T>;
+
+    //        var neighbors = new List<(int x,int y, T val)>();
+    //        var v = grid[x][y];
+    //        if (dir == Directions.All || dir == Directions.NoDiag)
+    //        {
+    //            if (y != 0 && check(v, grid[y - 1][x]))
+    //                neighbors.Add((y - 1, x, grid[y-1][x]));
+    //            if (y < grid.Length - 1 && check(v, grid[y + 1][x]))
+    //                neighbors.Add((y + 1, x, grid[y + 1][x]));
+    //            if (x != 0 && check(v, grid[y][x-1]))
+    //                neighbors.Add((y, x, grid[y][x-1]));
+    //            if (x < grid[0].Length - 1 && check(v, grid[y][x+1]))
+    //                neighbors.Add((y, x+1, grid[y][x+1]));
+    //        }
+    //    }
+    //}
+
+    
+    //public enum Directions
+    //{
+    //    NoDiag,
+    //    Diag,
+    //    All
+    //}
 }
