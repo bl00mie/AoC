@@ -56,9 +56,9 @@ namespace AoC
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public delegate bool NeighborTest(T mine, T theirs);
+        public delegate bool NeighborTest((Point p, T v) mine, (Point p, T v) theirs);
 
-        public static bool Yes(T mine, T theirs) => true;
+        public static bool Yes((Point p, T v) mine, (Point p, T v) theirs) => true;
 
         public IEnumerable<(Point p, T v)> Neighbors(Point point, IEnumerable<GridVector> directions, NeighborTest test = null)
         {
@@ -70,7 +70,7 @@ namespace AoC
             foreach (var dir in directions)
             {
                 var location = point + dir;
-                if (grid.ContainsKey(location) && test(v, grid[location]))
+                if (grid.ContainsKey(location) && test((point, v), (location, grid[location])))
                     neighbors.Add((location, grid[location]));
             }
 
