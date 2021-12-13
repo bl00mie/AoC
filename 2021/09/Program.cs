@@ -24,7 +24,7 @@ namespace AoC._2021._09
             #endregion
 
             #region Part 1
-            static bool NotHigher((Point p, byte v) mine, (Point p, byte v) theirs) => theirs.v <= mine.v;
+            static bool NotHigher((Coord p, byte v) mine, (Coord p, byte v) theirs) => theirs.v <= mine.v;
             var lows = grid.Where(loc => !grid.Neighbors(loc.p, Grid.NESW, NotHigher).Any());
             Ans(lows.Sum(loc => loc.v + 1));
             #endregion Part 1
@@ -32,7 +32,7 @@ namespace AoC._2021._09
             #region Part 2
             var basins = lows.Select(loc =>
             {
-                var basinNeighbors = new HashSet<Point> { loc.p };
+                var basinNeighbors = new HashSet<Coord> { loc.p };
 
                 var newNeighbors = BasinNeighbors(loc.p)
                     .Select(n => n.p)
@@ -56,9 +56,9 @@ namespace AoC._2021._09
             #endregion
         }
 
-        static IEnumerable<(Point p, byte v)> BasinNeighbors(Point p)
+        static IEnumerable<(Coord p, byte v)> BasinNeighbors(Coord p)
         {
-            static bool IsBasinNeighbor((Point p, byte v) mine, (Point p, byte v) theirs)
+            static bool IsBasinNeighbor((Coord p, byte v) mine, (Coord p, byte v) theirs)
                 => theirs.v != 9 && mine.v < theirs.v;
             return grid.Neighbors(p, Grid.NESW, IsBasinNeighbor);
         }

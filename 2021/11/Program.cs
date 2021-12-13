@@ -25,7 +25,7 @@ namespace AoC._2021._11
             long total = 0;
             for (int i = 0; true; i++)
             {
-                var flashers = new List<Point>();
+                var flashers = new List<Coord>();
                 foreach (var (p, v) in grid)
                     if (++grid[p] > 9)
                         flashers.Add(p);
@@ -56,6 +56,8 @@ namespace AoC._2021._11
                 foreach (var (p, v) in grid)
                     if (v < 0)
                         grid[p] = 0;
+
+                grid.Render(", ");
             }
         }
     }

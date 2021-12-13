@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AoC
@@ -84,16 +85,35 @@ namespace AoC
             return groups;
         }
 
-        public static void PaintGrid(IEnumerable<(int x, int y)> grid)
+        public static void PaintGrid(IEnumerable<(int x, int y)> grid, char filled = '█', char empty = ' ')
         {
             var X = grid.Max(xy => xy.x);
             var Y = grid.Max(xy => xy.y);
-            for(int y = 0; y <= Y; y++)
+            var gridSB = new StringBuilder();
+            for (int y = 0; y <= Y; y++)
             {
+                var sb = new StringBuilder();
                 for (int x = 0; x <= X; x++)
-                    Debug.Write((grid.Contains((x, y)) ? '█' : ' '));
-                Debug.WriteLine("");
+                    sb.Append(grid.Contains((x, y)) ? filled : empty);
+                gridSB.AppendLine(sb.ToString());
             }
+            Debug.WriteLine(gridSB);
+        }
+
+        public static void PaintGrid<T>(Dictionary<(int x, int y), T> grid, string empty = " ", string delim = null)
+        {
+            var X = grid.Keys.Max(xy => xy.x);
+            var Y = grid.Keys.Max(xy => xy.y);
+            var gridSB = new StringBuilder();
+            for (int y = 0; y <= Y; y++)
+            {
+                var row = new string[X + 1];
+                for (int x = 0; x <= X; x++)
+                    row[x] = grid.ContainsKey((x, y)) ? grid[(x, y)].ToString() : empty;
+                gridSB.AppendLine(string.Join(delim, row));
+            }
+            gridSB.AppendLine();
+            Debug.WriteLine(gridSB);
         }
 
         public static IEnumerable<IEnumerable<T>> GetPermutationsRecursive<T>(IEnumerable<T> list, int length)

@@ -5,26 +5,23 @@ using System.Linq;
 
 namespace AoC
 {
-    public class Grid<T> : IEnumerable<(Point p, T v)>
+    public class Grid<T> : IEnumerable<(Coord p, T v)>
     {
-        protected Dictionary<Point, T> _grid;
+        protected Dictionary<Coord, T> _grid;
         
-        public int Height { get; }
-        public int Width { get; }
-
         public Grid(IEnumerable<IEnumerable<T>> input)
         {
-            Height = input.Count();
-            Width = input.First().Count();
-            _grid = new Dictionary<Point, T>();
-            for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
+            var h = input.Count();
+            var w = input.First().Count();
+            _grid = new Dictionary<Coord, T>();
+            for (int y = 0; y < h; y++)
+                for (int x = 0; x < w; x++)
                     _grid[new(x, y)] = input.ElementAt(y).ElementAt(x);
         }
 
         public Grid(IEnumerable<(int, int, T)> input)
         {
-            _grid = new Dictionary<Point, T>();
+            _grid = new Dictionary<Coord, T>();
             foreach (var (x, y, val) in input)
             {
                 _grid[new(x, y)] = val;
@@ -42,7 +39,7 @@ namespace AoC
             }
         }
 
-        public virtual T this[Point p]
+        public virtual T this[Coord p]
         {
             get
             {
@@ -58,7 +55,7 @@ namespace AoC
             }
         }
 
-        public IEnumerator<(Point p, T v)> GetEnumerator()
+        public IEnumerator<(Coord p, T v)> GetEnumerator()
         {
             foreach (var pair in _grid)
             {
@@ -68,16 +65,16 @@ namespace AoC
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public delegate bool NeighborTest((Point p, T v) mine, (Point p, T v) theirs);
+        public delegate bool NeighborTest((Coord p, T v) mine, (Coord p, T v) theirs);
 
-        public static bool Yes((Point p, T v) mine, (Point p, T v) theirs) => true;
+        public static bool Yes((Coord p, T v) mine, (Coord p, T v) theirs) => true;
 
-        public IEnumerable<(Point p, T v)> Neighbors(Point point, IEnumerable<GridVector> directions, NeighborTest test = null)
+        public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null)
         {
             if (test == null)
                 test = Yes;
 
-            var neighbors = new List<(Point p, T v)>();
+            var neighbors = new List<(Coord p, T v)>();
             var v = _grid[point];
             foreach (var dir in directions)
             {
@@ -91,24 +88,17 @@ namespace AoC
 
         public void Render(string delim = "")
         {
-            for (int y = 0; y<Width; y++)
-            {
-                T[] row = new T[Width];
-                for (int x = 0; x < Height; x++)
-                    row[x] = _grid[new(x, y)];
-                Console.WriteLine(String.Join(delim, row));
-            }
-            Console.WriteLine();
+            AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
         }
     }
 
     public class HistoryGrid<T> : Grid<T>
     {
-        public Stack<Dictionary<Point, T>> History { get; } = new();
+        public Stack<Dictionary<Coord, T>> History { get; } = new();
 
         public HistoryGrid(IEnumerable<IEnumerable<T>> input) : base(input)
         {
-            History = new Stack<Dictionary<Point,T>>();
+            History = new Stack<Dictionary<Coord,T>>();
         }
 
         public override T this[int x, int y]
@@ -121,31 +111,31 @@ namespace AoC
             }
         }
 
-        public override T this[Point p]
+        public override T this[Coord p]
         {
             get => _grid[p];
 
             set
             {
                 History.Push(_grid);
-                _grid = new Dictionary<Point, T>(_grid) { [p] = value };
+                _grid = new Dictionary<Coord, T>(_grid) { [p] = value };
             }
         }
 
     }
 
-    public struct Point
+    public struct Coord
     {
         public int x;
         public int y;
 
-        public Point(int x, int y)
+        public Coord(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
 
-        public static Point operator +(Point p, GridVector v) => new(p.x + v.dx, p.y + v.dy);
+        public static Coord operator +(Coord p, GridVector v) => new(p.x + v.dx, p.y + v.dy);
 
         public override string ToString()
         {
@@ -164,7 +154,7 @@ namespace AoC
             this.dy = dy;
         }
 
-        public GridVector(Point p1, Point p2)
+        public GridVector(Coord p1, Coord p2)
         {
             dx = p1.x - p2.x;
             dy = p1.y - p2.y;
