@@ -1,32 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AoC
 {
     public static class AoCUtil
     {
-        public static IEnumerable<string> ReadLines(StreamReader streamReader)
-        {
-            string line;
-            while ((line = streamReader.ReadLine()) != null)
-                yield return line;
-        }
-
-        public static IEnumerable<string> ReadLines(string fileName)
-        {
-            using (var sr = new StreamReader(fileName))
-            {
-                return ReadLines(sr);
-            }
-        }
-
         public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null)
         {
             return GetAocInputAsync(year, day, sessionCookie).Result;
@@ -63,14 +48,52 @@ namespace AoC
             return File.ReadLines(filepath);
         }
 
-        public static string StringifyArray(Array a)
+        public static IEnumerable<string> ReadLines(StreamReader streamReader)
         {
-            StringBuilder sb = new StringBuilder(a.Length * 20);
-            sb.Append("[ ");
-            foreach (var item in a)
-                sb.AppendFormat("{0} ", item);
-            sb.Append(" ]");
-            return sb.ToString();
+            string line;
+            while ((line = streamReader.ReadLine()) != null)
+                yield return line;
+        }
+
+        public static IEnumerable<string> ReadLines(string fileName)
+        {
+            using (var sr = new StreamReader(fileName))
+            {
+                return ReadLines(sr);
+            }
+        }
+
+
+        public static IEnumerable<IEnumerable<string>> GroupInput(int year, int day, string sessionCookie = null)
+        {
+            var input = GetAocInput(year, day, sessionCookie);
+            var groups = new List<IEnumerable<string>>();
+            var group = new List<string>();
+            foreach (var line in input)
+            {
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    groups.Add(group);
+                    group = new List<string>();
+                    continue;
+                }
+                group.Add(line);
+            }
+            if (group.Count > 0)
+                groups.Add(group);
+            return groups;
+        }
+
+        public static void PaintGrid(IEnumerable<(int x, int y)> grid)
+        {
+            var X = grid.Max(xy => xy.x);
+            var Y = grid.Max(xy => xy.y);
+            for(int y = 0; y <= Y; y++)
+            {
+                for (int x = 0; x <= X; x++)
+                    Debug.Write((grid.Contains((x, y)) ? '█' : ' '));
+                Debug.WriteLine("");
+            }
         }
 
         public static IEnumerable<IEnumerable<T>> GetPermutationsRecursive<T>(IEnumerable<T> list, int length)

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 namespace AoC
 {
     public class Grid<T> : IEnumerable<(Point p, T v)>
     {
-        private ImmutableDictionary<Point, T> grid;
+        protected Dictionary<Point, T> _grid;
         
-        public Stack<ImmutableDictionary<Point, T>> History { get; } = new();
         public int Height { get; }
         public int Width { get; }
 
@@ -18,14 +16,23 @@ namespace AoC
         {
             Height = input.Count();
             Width = input.First().Count();
-            var dict = new Dictionary<Point, T>();
+            _grid = new Dictionary<Point, T>();
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    dict[new(x, y)] = input.ElementAt(y).ElementAt(x);
-            grid = dict.ToImmutableDictionary();
+                    _grid[new(x, y)] = input.ElementAt(y).ElementAt(x);
         }
 
-        public T this[int x, int y]
+        public Grid(IEnumerable<(int, int, T)> input)
+        {
+            _grid = new Dictionary<Point, T>();
+            foreach (var (x, y, val) in input)
+            {
+                _grid[new(x, y)] = val;
+            }
+        }
+
+
+        public virtual T this[int x, int y]
         {
             get => this[new(x,y)];
 
@@ -35,20 +42,25 @@ namespace AoC
             }
         }
 
-        public T this[Point p]
+        public virtual T this[Point p]
         {
-            get => grid[p];
+            get
+            {
+                if (!_grid.ContainsKey(p))
+                    return default(T);
+                return _grid[p];
+            }
+            
 
             set
             {
-                History.Push(grid);
-                grid = new Dictionary<Point, T>(grid) { [p] = value }.ToImmutableDictionary();
+                _grid[p] = value;
             }
         }
 
         public IEnumerator<(Point p, T v)> GetEnumerator()
         {
-            foreach (var pair in grid)
+            foreach (var pair in _grid)
             {
                 yield return (pair.Key, pair.Value);
             }
@@ -66,12 +78,12 @@ namespace AoC
                 test = Yes;
 
             var neighbors = new List<(Point p, T v)>();
-            var v = grid[point];
+            var v = _grid[point];
             foreach (var dir in directions)
             {
                 var location = point + dir;
-                if (grid.ContainsKey(location) && test((point, v), (location, grid[location])))
-                    neighbors.Add((location, grid[location]));
+                if (_grid.ContainsKey(location) && test((point, v), (location, _grid[location])))
+                    neighbors.Add((location, _grid[location]));
             }
 
             return neighbors;
@@ -83,11 +95,43 @@ namespace AoC
             {
                 T[] row = new T[Width];
                 for (int x = 0; x < Height; x++)
-                    row[x] = grid[new(x, y)];
+                    row[x] = _grid[new(x, y)];
                 Console.WriteLine(String.Join(delim, row));
             }
             Console.WriteLine();
         }
+    }
+
+    public class HistoryGrid<T> : Grid<T>
+    {
+        public Stack<Dictionary<Point, T>> History { get; } = new();
+
+        public HistoryGrid(IEnumerable<IEnumerable<T>> input) : base(input)
+        {
+            History = new Stack<Dictionary<Point,T>>();
+        }
+
+        public override T this[int x, int y]
+        {
+            get => this[new(x, y)];
+
+            set
+            {
+                this[new(x, y)] = value;
+            }
+        }
+
+        public override T this[Point p]
+        {
+            get => _grid[p];
+
+            set
+            {
+                History.Push(_grid);
+                _grid = new Dictionary<Point, T>(_grid) { [p] = value };
+            }
+        }
+
     }
 
     public struct Point
