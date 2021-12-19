@@ -165,6 +165,8 @@ namespace AoC
 
     public static class Grid
     {
+        public static readonly IEnumerable<GridVector> ES = new GridVector[] { new(1, 0), new(0, -1) };
+        public static readonly IEnumerable<GridVector> ESWN = new GridVector[] { new(1, 0), new(0, -1), new(-1, 0), new(0, 1) }; 
         public static readonly IEnumerable<GridVector> NESW = new GridVector[] { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) };
         public static readonly IEnumerable<GridVector> Diag = new GridVector[] { new(1, 1), new(1, -1), new(-1, -1), new(1, -1) };
         public static readonly IEnumerable<GridVector> AllDirs = new GridVector[] { new(0, 1), new(1, 1), new(1, 0), new(1, -1), new(0, -1), new(-1, -1), new(-1, 0), new(-1, 1) };
