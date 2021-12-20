@@ -8,14 +8,16 @@ namespace AoC
     public class Grid<T> : IEnumerable<(Coord p, T v)>
     {
         protected Dictionary<Coord, T> _grid;
-        
+        public int H;
+        public int W;
+
         public Grid(IEnumerable<IEnumerable<T>> input)
         {
-            var h = input.Count();
-            var w = input.First().Count();
+            H = input.Count();
+            W = input.First().Count();
             _grid = new Dictionary<Coord, T>();
-            for (int y = 0; y < h; y++)
-                for (int x = 0; x < w; x++)
+            for (int y = 0; y < H; y++)
+                for (int x = 0; x < W; x++)
                     _grid[new(x, y)] = input.ElementAt(y).ElementAt(x);
         }
 
