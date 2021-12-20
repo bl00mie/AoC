@@ -7,15 +7,20 @@ namespace AoC
 {
     public class Grid<T> : IEnumerable<(Coord p, T v)>
     {
-        protected Dictionary<Coord, T> _grid;
+        protected Dictionary<Coord, T> _grid = new();
         public int H;
         public int W;
+        public T DefaultValue = default;
+        public bool StoreOnMissingLookup = false;
+
+        public Grid()
+        {
+        }
 
         public Grid(IEnumerable<IEnumerable<T>> input)
         {
             H = input.Count();
             W = input.First().Count();
-            _grid = new Dictionary<Coord, T>();
             for (int y = 0; y < H; y++)
                 for (int x = 0; x < W; x++)
                     _grid[new(x, y)] = input.ElementAt(y).ElementAt(x);
@@ -41,20 +46,21 @@ namespace AoC
             }
         }
 
-        public virtual T this[Coord p]
+        public virtual T this[Coord coord]
         {
             get
             {
-                if (!_grid.ContainsKey(p))
-                    return default(T);
-                return _grid[p];
+                if(!_grid.ContainsKey(coord))
+                {
+                    if (!StoreOnMissingLookup)
+                        return DefaultValue;
+                    _grid[coord] = DefaultValue;
+                }
+                return _grid[coord];
             }
             
 
-            set
-            {
-                _grid[p] = value;
-            }
+            set => _grid[coord] = value;
         }
 
         public IEnumerator<(Coord p, T v)> GetEnumerator()
@@ -71,27 +77,27 @@ namespace AoC
 
         public static bool Yes((Coord p, T v) mine, (Coord p, T v) theirs) => true;
 
-        public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null)
+        public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null, bool defaultIfMissing = false)
         {
             if (test == null)
                 test = Yes;
 
             var neighbors = new List<(Coord p, T v)>();
-            var v = _grid[point];
+            var v = this[point];
             foreach (var dir in directions)
             {
                 var location = point + dir;
-                if (_grid.ContainsKey(location) && test((point, v), (location, _grid[location])))
-                    neighbors.Add((location, _grid[location]));
+                if ((_grid.ContainsKey(location) || defaultIfMissing) && test((point, v), (location, this[location])))
+                    neighbors.Add((location, this[location]));
             }
 
             return neighbors;
         }
 
         public void Render(string delim = "")
-        {
-            AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
-        }
+            => AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
+
+        public void Clear() => _grid.Clear();
     }
 
     public class HistoryGrid<T> : Grid<T>
@@ -163,10 +169,7 @@ namespace AoC
         }
 
         public int GridMagnitude => dx + dy;
-    }
 
-    public static class Grid
-    {
         public static readonly IEnumerable<GridVector> ES = new GridVector[] { new(1, 0), new(0, -1) };
         public static readonly IEnumerable<GridVector> ESWN = new GridVector[] { new(1, 0), new(0, -1), new(-1, 0), new(0, 1) }; 
         public static readonly IEnumerable<GridVector> NESW = new GridVector[] { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) };

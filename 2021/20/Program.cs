@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RegExtract;
 
 namespace AoC._2021._20
 {
@@ -34,15 +32,11 @@ namespace AoC._2021._20
             #endregion
             #endregion
 
-            //draw(grid, L, R, T, B);
-            #region Part 1
+            var nextGrid = new AoCDictionary<Coord, char>() { def = '#' };
             for (int i = 0; i < 50; i++)
             {
-                L--;
-                R++;
-                T--;
-                B++;
-                var nextGrid = new AoCDictionary<Coord, char>(grid.def == '.' ? '#' : '.');
+                L--; R++;
+                T--; B++;
                 for (int y = T; y < B; y++)
                     for (int x = L; x < R; x++)
                     {
@@ -55,18 +49,19 @@ namespace AoC._2021._20
                             }
                         nextGrid[new(x,y)] = alg[index];
                     }
-                grid = nextGrid;
+                swap(ref grid, ref nextGrid);
+                nextGrid.Clear();
                 if (i == 1)
                     Ans(grid.Where(entry => entry.Value == '#').Count());
             }
             Ans2(grid.Where(entry => entry.Value == '#').Count());
+        }
 
-            #endregion Part 1
-
-            #region Part 2
-
-            //Ans("", 2);
-            #endregion
+        static void swap(ref AoCDictionary<Coord, char> a, ref AoCDictionary<Coord, char> b)
+        {
+            AoCDictionary<Coord, char> temp = a;
+            a = b;
+            b = temp;
         }
 
         static void draw(Dictionary<Coord, char> grid, int l, int r, int t, int b)

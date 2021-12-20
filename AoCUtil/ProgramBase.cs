@@ -27,5 +27,10 @@ namespace AoC
         public static void WL() => Debug.WriteLine(string.Empty);
         public static void WL<T>(T message) => Debug.WriteLine(message);
         public static void WL(string template, params object[] os) => Debug.WriteLine(string.Format(template, os));
+
+        public static bool OutOfBounds(Coord c, int maxX, int maxY, int minX = 0, int minY = 0)
+            => c.x < minX || c.x > maxX || c.y < minY || c.y > maxY;
+        public static bool OutOfBounds(int x, int y, int maxX, int maxY, int minX = 0, int minY = 0)
+            => x < minX || x > maxX || y < minY || y > maxY;
     }
 }
