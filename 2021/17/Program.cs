@@ -24,7 +24,7 @@ namespace AoC._2021._17
             long highest = long.MinValue;
             long count = 0;
             for (int DX = 0; DX <= Math.Max(i.x1, i.x2); DX++)
-                for (int DY = Math.Min(i.y1,i.y1); DY <= 150; DY++)
+                for (int DY = Math.Min(i.y1,i.y2); DY <= 150; DY++)
                 {
                     var landed = false;
                     long x = 0, y = 0;
