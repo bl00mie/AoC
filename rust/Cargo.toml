@@ -1,0 +1,40 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Chad Blomquist <chad@blomqui.st>"]
+description = "Advent of Code solutions for @bl00mie. Puzzle run infrastructure adapted from @knutwalker's setup."
+edition = "2021"
+license = "MIT"
+publish = false
+default-run = "aoc2016"
+
+[dependencies]
+bitvec = "0.22.3"
+const-combinations = "2.0.3"
+derive_more = { version = "0.99.17", features = ["deref", "deref_mut", "add", "add_assign"], default-features = false }
+disjoint-sets = "0.4.2"
+fxhash = "0.2.1"
+humantime = "2.1.0"
+indexmap = "1.7.0"
+num_enum = "0.5.4"
+owo-colors = { version = "3.1.1", features = ["supports-colors"] }
+parse-display = "0.5.3"
+priority-queue = "1.2.1"
+tap = "1.0.1"
+
+# bit-set = "0.5.2"
+# chrono = "0.4.19"
+# const_format = "0.2.22"
+# either = "1.6.1"
+# eyre = "0.6.5"
+# fancy-regex = "0.7.1"
+# fastrand = "1.5.0"
+# graph = "0.1.6"
+# itertools = "0.10.1"
+# num = "0.4.0"
+# once_cell = "1.8.0"
+# regex = "1.5.4"
+# thiserror = "1.0.30"
+
+[[bin]]
+name = "aoc2016"
