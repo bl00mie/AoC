@@ -17,7 +17,6 @@ namespace AoC._2021._21
             var input = AoCUtil.GetAocInput(2021, 21);
             var P1 = input.First().Extract<int>(@"Player 1 starting position: (\w+)") - 1;
             var P2 = input.Last().Extract<int>(@"Player 2 starting position: (\w+)") - 1;
-            var pos = new int[] { P1, P2 };
 
             #region Stopwatch
             Stopwatch.Stop();
@@ -27,14 +26,15 @@ namespace AoC._2021._21
             #endregion
 
             #region Part 1
+            var p = new int[] { P1, P2 };
             var s = new int[] { 0, 0 };
             int die = 1;
             while (s[0] < 1000 && s[1] < 1000)
             {
                 var delta = die++ + die++ + die++;
                 var player = die % 2;
-                pos[player] = (pos[player] + delta) % 10;
-                s[player] += pos[player] + 1;
+                p[player] = (p[player] + delta) % 10;
+                s[player] += p[player] + 1;
             }
             Ans(Math.Min(s[0], s[1]) * (die-1));
             #endregion Part 1
