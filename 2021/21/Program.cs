@@ -58,9 +58,8 @@ namespace AoC._2021._21
                 foreach (var d2 in Die)
                     foreach (var d3 in Die)
                     {
-                        var newP1 = (p1 + d1 + d2 + d3) % 10;
-                        var newS1 = s1 + newP1 + 1;
-                        var (c2, c1) = Count(p2, newP1, s2, newS1);
+                        var np = (p1 + d1 + d2 + d3) % 10;
+                        var (c2, c1) = Count(p2, np, s2, s1 + np + 1);
                         count = (count.Item1 + c1, count.Item2 + c2);
                     }
             history[(p1, p2, s1, s2)] = count;
