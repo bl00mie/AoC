@@ -38,3 +38,4 @@ tap = "1.0.1"
 
 [[bin]]
 name = "aoc2016"
+path = "src/aoc2016/main.rs"
