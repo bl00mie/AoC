@@ -13,25 +13,20 @@ register!(
 );
 
 fn part1(items: &[Input]) -> Output {
-    let mut button = 5u32;
+    let mut button = 5i8;
     let mut code = 0u32;
     for cmd in items {
         code *= 10;
         for c in cmd.chars() {
-            button = if c == 'U' && button > 3 {
-                button - 3
-            } else if c == 'D' && button < 7 {
-                button + 3
-            } else if c == 'L' && button % 3 != 1 {
-                button - 1
-            } else if c == 'R' && button % 3 != 0 {
-                button + 1
-            }
-            else {
-                button
+            button += match c {
+                'U' if button > 3 => -3,
+                'D' if button < 7 => 3,
+                'L' if button % 3 != 1 => -1,
+                'R' if button % 3 != 0 => 1,
+                _ => 0
             };
         }
-        code += button;
+        code += button as u32;
     }
     code.to_string()
 }
