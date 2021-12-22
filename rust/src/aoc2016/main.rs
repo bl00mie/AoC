@@ -34,4 +34,5 @@ extern crate test;
 aoc_main!(
     1 => day1,
     2 => day2,
+    3 => day3,
 );
