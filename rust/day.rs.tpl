@@ -2,7 +2,7 @@ type Input = u64;
 type Output = usize;
 
 register!(
-    "input/day.txt";
+    "../../../inputs/DAY";
     (input: input!(parse Input)) -> Output {
         part1(&input);
         part2(&input);

@@ -11,7 +11,11 @@ ifeq ($(origin .RECIPEPREFIX), undefined)
 endif
 .RECIPEPREFIX = >
 
-APP := aoc2021
+YEAR := 2016
+APP := aoc$(YEAR)
+INPUTPATH := ../inputs/
+COOKIEFILE := ../session_cookie
+SESSIONCOOKIE :=$(file < $(COOKIEFILE))
 
 CARGOFLAGS ?=
 
@@ -36,7 +40,7 @@ target/release/%: .cargoinstalled Cargo.toml Cargo.lock src/lib.rs $(shell find 
 %_bench.md: target/release/%
 > env AOC_NO_OUTPUT=1 hyperfine --export-markdown $@ --warmup 10 --runs 50 --parameter-scan day 1 25 --command-name 'day {day}' './$< {day}'
 
-README.md: README.tpl.md aoc2020_bench.md aoc2021_bench.md
+README.md: README.tpl.md aoc2016_bench.md
 > m4 $< > $@
 > markdown-table-formatter $@
 
@@ -51,10 +55,10 @@ README.md: README.tpl.md aoc2020_bench.md aoc2021_bench.md
 # Download inputs
 
 i%:
-> curl --cookie "session=$$(cat .sessioncookie)" "https://adventofcode.com/2021/day/$*/input" > src/bin/$(APP)/input/day$*.txt
-> bat src/bin/$(APP)/input/day$*.txt
+> curl --cookie "session=$(SESSIONCOOKIE)" "https://adventofcode.com/$(YEAR)/day/$*/input" > $(INPUTPATH)$(YEAR)_$*
+> bat $(INPUTPATH)$(YEAR)_$*
 
 # Generate source file
 d%:
-> m4 -D day=day$* day.rs.tpl > src/bin/$(APP)/day$*.rs
-> code src/bin/$(APP)/day$*.rs
+> C:\GnuWin\bin\m4.EXE -D DAY=$(YEAR)_$* day.rs.tpl > src/$(APP)/day$*.rs
+> code src/$(APP)/day$*.rs
