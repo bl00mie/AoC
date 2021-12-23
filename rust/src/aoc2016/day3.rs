@@ -2,31 +2,31 @@ use std::{num::ParseIntError, str::FromStr};
 
 register!(
     "../../../inputs/2016_3";
-    (input: input!(parse Triangle)) -> u64 {
+    (input: input!(parse Triangle)) -> u16 {
         part1(&input);
         part2(&input);
     }
 );
 
-fn part1(items: &[Triangle]) -> u64 {
-    let mut valid = 0u64;
-    for t in items.iter().copied() {
+fn part1(items: &[Triangle]) -> u16 {
+    let mut valid = 0u16;
+    for t in items.iter() {
         valid += is_valid(t);
     }
-    return valid;
+    valid
 }
 
-fn part2(items: &[Triangle]) -> u64 {
-    let mut valid = 0u64;
+fn part2(items: &[Triangle]) -> u16 {
+    let mut valid = 0u16;
     match IntoIterator::into_iter(items) {
         mut iter => loop {
             match iter.next() {
                 Some(l1) => {
                     let l2 = iter.next().unwrap();
                     let l3 = iter.next().unwrap();
-                    valid += is_valid(Triangle { a: l1.a, b: l2.a, c: l3.a})
-                        + is_valid(Triangle{ a: l1.b, b: l2.b, c: l3.b }) 
-                        + is_valid(Triangle {a: l1.c, b: l2.c, c: l3.c });
+                    valid += is_valid(&Triangle { a: l1.a, b: l2.a, c: l3.a})
+                        + is_valid(&Triangle { a: l1.b, b: l2.b, c: l3.b })
+                        + is_valid(&Triangle { a: l1.c, b: l2.c, c: l3.c });
                 },
                 None => break,
             };
@@ -35,14 +35,14 @@ fn part2(items: &[Triangle]) -> u64 {
     valid
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Debug)]
 pub struct Triangle {
-    a: u64,
-    b: u64,
-    c: u64
+    a: u16,
+    b: u16,
+    c: u16
 }
 
-fn is_valid(t: Triangle) -> u64 {
+fn is_valid(t: &Triangle) -> u16 {
     return if t.a + t.b > t.c && t.a + t.c > t.b && t.b + t.c > t.a {
         1
     } else {
@@ -54,7 +54,7 @@ impl FromStr for Triangle {
     type Err = ParseIntError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let mut legs:[u64;3] = [0; 3];
+        let mut legs:[u16;3] = [0; 3];
         let mut i: usize = 0;
         for leg in s.split(' ') {
             if leg == "" {
