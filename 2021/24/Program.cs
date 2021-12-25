@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using RegExtract;
 
 namespace AoC._2021._24
 {
     class Program : ProgramBase
     {
+        static string[][] cmds;
         static void Main()
         {
             #region input
@@ -37,17 +36,20 @@ namespace AoC._2021._24
             #endregion
         }
 
+        // Total hack, borrowed from Neal Wu's solution. 9_000_000 worked for me.
+        // Lower = faster, but raising might fix incorrect answers.
+        const int Z = 9_000_000;
         static int d1;
         static int d2;
         static int delta;
-        static Dictionary<(int, long, long, long, long), (bool, string)> cache = new ();
-        static string[][] cmds;
-        static (bool success, string val) MONAD(int p, long w, long x, long y, long z)
+        static Dictionary<(int, int, int, int, int), (bool, string)> cache = new ();
+        
+        static (bool success, string val) MONAD(int p, int w, int x, int y, int z)
         {
             var key = (p, w, x, y, z);
             if (cache.ContainsKey(key))
                 return cache[(p, w, x, y, z)];
-            if (z > 10000000)
+            if (z > Z)
                 return (false, "");
             if (p >= cmds.Length)
                 return (z == 0, "");
@@ -60,21 +62,20 @@ namespace AoC._2021._24
                 for (int d = d1; d!= d2; d += delta)
                 {
                     vars[a] = d;
-                    var result = MONAD(p+1, vars[0], vars[1], vars[2], vars[3]);
-                    if (result.success)
+                    var (success, val) = MONAD(p+1, vars[0], vars[1], vars[2], vars[3]);
+                    if (success)
                     {
-                        var answer = (true, $"{d}{result.val}");
+                        var answer = (true, $"{d}{val}");
                         WL($"{p} {w} {x} {y} {z} {answer}");
                         cache[key] = answer;
-                        return (true, $"{d}{result.val}");
+                        return cache[key];
                     }
                 }
                 cache[key] = (false, "");
-                return (false, "");
             }
             else
             {
-                var b = char.IsLetter(cmd[2][0]) ? vars[cmd[2][0]-'w'] : long.Parse(cmd[2]);
+                var b = char.IsLetter(cmd[2][0]) ? vars[cmd[2][0]-'w'] : int.Parse(cmd[2]);
                 vars[a] = cmd[0] switch
                 {
                     "add" => vars[a] + b,
