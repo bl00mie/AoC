@@ -14,15 +14,10 @@ namespace AoC._2021._25
             Stopwatch.Start();
             #endregion
 
-            var input = AoCUtil.GetAocInput(2021, 25).Select(line => line.ToArray()).ToArray();
-            var W = input[0].Length;
-            var H = input.Length;
-            AoCDictionary<Coord, char> grid = new('.', false);
-            for (int y = 0; y < H; y++)
-                for (int x = 0; x < W; x++)
-                    if (input[y][x] != '.')
-                        grid[new(x, y)] = input[y][x];
-            
+            var grid = AoCUtil.GetAocInput(2021, 25).Select(line => line.ToArray()).ToArray();
+            var W = grid[0].Length;
+            var H = grid.Length;
+
             #region Stopwatch
             Stopwatch.Stop();
             WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");
@@ -32,24 +27,22 @@ namespace AoC._2021._25
 
             int steps = 0;
             var cucTypes = new (char dir, int dx, int dy)[] { ('>', 1, 0), ('v', 0, 1) };
-            var moves = new HashSet<Coord> { new(0,0) };
             var done = false;
             for (; !done; steps++)
             {
                 done = true;
                 foreach (var (dir, dx, dy) in cucTypes)
                 {
-                    moves.Clear();
-                    foreach (var (p, _) in grid.Where(cuc => cuc.Value == dir))
-                        if (grid[new((p.x + dx) % W, (p.y + dy) % H)] == '.')
-                            moves.Add(p);
+                     var moves= grid.SelectMany((row, y) => row.Select((v, x) => (x, y, v)))
+                        .Where(item => item.v == dir && grid[(item.y + dy) % H][(item.x + dx) % W] == '.')
+                        .ToList();
                     if (moves.Any())
                     {
                         done = false;
-                        foreach (var p in moves)
+                        foreach (var (x, y, _) in moves)
                         {
-                            grid[new((p.x + dx) % W, (p.y + dy) % H)] = dir;
-                            grid.Remove(p);
+                            grid[(y + dy) % H][(x + dx) % W] = dir;
+                            grid[y][x] = '.';
                         }
                     }
                 }
