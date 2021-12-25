@@ -48,7 +48,7 @@ namespace AoC._2021._24
         {
             var key = (p, w, x, y, z);
             if (cache.ContainsKey(key))
-                return cache[(p, w, x, y, z)];
+                return cache[key];
             if (z > Z)
                 return (false, "");
             if (p >= cmds.Length)
@@ -87,7 +87,7 @@ namespace AoC._2021._24
                 };
             }
             cache[key] = MONAD(p + 1, vars[0], vars[1], vars[2], vars[3]);
-            return cache[(p, w, x, y, z)];
+            return cache[key];
         }
     }
 
