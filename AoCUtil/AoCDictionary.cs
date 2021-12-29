@@ -14,7 +14,7 @@ namespace AoC
             _storeOnMissingLookup = storeOnMissingLookup;
         }
 
-        public TValue this[TKey key]
+        new public TValue this[TKey key]
         { 
             get
             {

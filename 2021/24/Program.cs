@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AoC._2021._24
@@ -24,16 +23,10 @@ namespace AoC._2021._24
             #endregion
 
             d1 = 9; d2 = 0; delta = -1;
-            Ans(MONAD(0,0,0,0,0));
-
+            Ans(monad(0,0,0,0,0));
+            cacher.Clear();
             d1 = 1; d2 = 10; delta = 1;
-            cache = new();
-            Ans2(MONAD(0,0,0,0,0));
-
-            #region Part 2
-
-            //Ans("", 2);
-            #endregion
+            Ans2(monad(0,0,0,0,0));
         }
 
         // Total hack, borrowed from Neal Wu's solution. 9_000_000 worked for me.
@@ -42,13 +35,11 @@ namespace AoC._2021._24
         static int d1;
         static int d2;
         static int delta;
-        static Dictionary<(int, int, int, int, int), (bool, string)> cache = new ();
-        
+        static Cacher<int, int, int, int, int, (bool, string)> cacher = Cacher.Wrap<int, int, int, int, int, (bool, string)>(MONAD);
+        static Func<int, int, int, int, int, (bool, string)> monad = cacher.Invoke;
+
         static (bool success, string val) MONAD(int p, int w, int x, int y, int z)
         {
-            var key = (p, w, x, y, z);
-            if (cache.ContainsKey(key))
-                return cache[key];
             if (z > Z)
                 return (false, "");
             if (p >= cmds.Length)
@@ -62,16 +53,15 @@ namespace AoC._2021._24
                 for (int d = d1; d!= d2; d += delta)
                 {
                     vars[a] = d;
-                    var (success, val) = MONAD(p+1, vars[0], vars[1], vars[2], vars[3]);
+                    var (success, val) = monad(p+1, vars[0], vars[1], vars[2], vars[3]);
                     if (success)
                     {
                         var answer = (true, $"{d}{val}");
-                        WL($"{p} {w} {x} {y} {z} {answer}");
-                        cache[key] = answer;
-                        return cache[key];
+                        //WL($"{p} {w} {x} {y} {z} {answer}");
+                        return answer;
                     }
                 }
-                cache[key] = (false, "");
+                return (false, "");
             }
             else
             {
@@ -86,8 +76,7 @@ namespace AoC._2021._24
                     _ => throw new Exception("wtaf")
                 };
             }
-            cache[key] = MONAD(p + 1, vars[0], vars[1], vars[2], vars[3]);
-            return cache[key];
+            return monad(p + 1, vars[0], vars[1], vars[2], vars[3]);
         }
     }
 

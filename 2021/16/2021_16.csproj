@@ -12,10 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LpDumper" Version="1.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\AoCUtil\AoCUtil.csproj" />
   </ItemGroup>
 </Project>
