@@ -25,14 +25,14 @@ namespace AoC._2022._2
             var ans1 = 0;
             foreach (var (l,r) in input)
             {
-                var a = l - 'A';
-                var b = r - 'X';
-                ans1 += ((b - a + 3) % 3) switch
+                var a = l - 'A' + 1;
+                var b = r - 'W';
+                ans1 += ((b-a+3)%3) switch
                 {
                     1 => 6,
                     0 => 3,
                     _ => 0
-                } + (b + 1);
+                } + b;
             }
             Ans(ans1);
             #endregion Part 1
@@ -44,9 +44,9 @@ namespace AoC._2022._2
                 var a = l - 'A';
                 ans2 += r switch
                 {
-                    'X' => (a + 2) % 3 + 1,
+                    'X' => (a+2)%3 + 1,
                     'Y' => a + 4,
-                    'Z' => (a + 1) % 3 + 7
+                    'Z' => (a+1)%3 + 7
                 };
             }
             Ans(ans2, 2);
