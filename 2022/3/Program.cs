@@ -29,12 +29,7 @@ namespace AoC._2022._3
             #endregion
         }
 
-        static int Priority(char c)
-        {
-            if (c >= 'a' && c <= 'z')
-                return c - 'a' + 1;
-            return c - 'A' + 27;
-        }
+        static int Priority(char c) => (c >= 'a' && c <= 'z') ? c - 'a' + 1 : c - 'A' + 27;
     }
 }
 
