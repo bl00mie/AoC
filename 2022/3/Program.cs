@@ -21,27 +21,11 @@ namespace AoC._2022._3
             #endregion
 
             #region Part 1
-            var ans = 0;
-            foreach (var rs in input)
-                foreach (var c in rs[..(rs.Length / 2)])
-                    if (rs[(rs.Length / 2)..].Contains(c))
-                    {
-                        ans += Priority(c);
-                        break;
-                    }
-            Ans(ans);
+            Ans(input.Sum(rs => Priority(rs[..(rs.Length / 2)].Intersect(rs[(rs.Length / 2)..]).Single())));
             #endregion Part 1
 
             #region Part 2
-            var ans2 = 0;
-            foreach (var g in input.Chunk(3))
-                foreach (char c in g[0])
-                    if (g[1].Contains(c) && g[2].Contains(c))
-                    {
-                        ans2 += Priority(c);
-                        break;
-                    }
-            Ans2(ans2);
+            Ans2(input.Chunk(3).Sum(g => Priority(g[0].Intersect(g[1]).Intersect(g[2]).Single())));
             #endregion
         }
 
