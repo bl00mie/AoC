@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -128,6 +127,12 @@ namespace AoC
                 History.Push(_grid);
                 _grid = new Dictionary<Coord, T>(_grid) { [p] = value };
             }
+        }
+
+        public void GoBack(int moves = 1)
+        {
+            while (moves-- > 0)
+                _grid = History.Pop();
         }
 
     }
