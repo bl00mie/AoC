@@ -29,9 +29,7 @@ namespace AoC
         {
             _grid = new Dictionary<Coord, T>();
             foreach (var (x, y, val) in input)
-            {
                 _grid[new(x, y)] = val;
-            }
         }
 
 
@@ -39,10 +37,7 @@ namespace AoC
         {
             get => this[new(x,y)];
 
-            set
-            {
-                this[new(x,y)] = value;
-            }
+            set => this[new(x,y)] = value;
         }
 
         public virtual T this[Coord coord]
@@ -57,7 +52,6 @@ namespace AoC
                 }
                 return _grid[coord];
             }
-            
 
             set => _grid[coord] = value;
         }
@@ -65,9 +59,7 @@ namespace AoC
         public IEnumerator<(Coord p, T v)> GetEnumerator()
         {
             foreach (var pair in _grid)
-            {
                 yield return (pair.Key, pair.Value);
-            }
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -78,15 +70,14 @@ namespace AoC
 
         public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null, bool defaultIfMissing = false)
         {
-            if (test == null)
-                test = Yes;
+            test ??= Yes;
 
             var neighbors = new List<(Coord p, T v)>();
             var v = this[point];
             foreach (var dir in directions)
             {
                 var location = point + dir;
-                if ((_grid.ContainsKey(location) || defaultIfMissing) && test((point, v), (location, this[location])))
+                if ((ContainsCoord(location) || defaultIfMissing) && test((point, v), (location, this[location])))
                     neighbors.Add((location, this[location]));
             }
 
@@ -97,6 +88,10 @@ namespace AoC
             => AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
 
         public void Clear() => _grid.Clear();
+
+        public bool ContainsCoord(Coord c) => _grid.ContainsKey(c);
+
+        public bool IsEdge(Coord c) => c.x == 0 || c.x == W - 1 || c.y == 0 || c.y == H - 1;
     }
 
     public class HistoryGrid<T> : Grid<T>
@@ -172,6 +167,8 @@ namespace AoC
             dx = p1.x - p2.x;
             dy = p1.y - p2.y;
         }
+
+        public static GridVector operator *(GridVector v, int magnitude) => new(v.dx*magnitude, v.dy*magnitude);
 
         public int GridMagnitude => dx + dy;
 

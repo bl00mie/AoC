@@ -37,7 +37,7 @@ namespace AoC._2022._8
                             vis = false;
                             break;
                         }
-                        n.x += v.dx; n.y += v.dy;
+                        n += v;
                     }
                     if (vis)
                     {
