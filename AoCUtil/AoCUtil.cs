@@ -23,9 +23,7 @@ namespace AoC
             if (sessionCookie == null)
             {
                 if (!File.Exists("../../session_cookie"))
-                {
                     throw new FileNotFoundException("Couldn't locate session_cookie file. Aborting");
-                }
                 sessionCookie = File.ReadLines("../../session_cookie").First();
             }
 
@@ -58,10 +56,8 @@ namespace AoC
 
         public static IEnumerable<string> ReadLines(string fileName)
         {
-            using (var sr = new StreamReader(fileName))
-            {
-                return ReadLines(sr);
-            }
+            using var sr = new StreamReader(fileName);
+            return ReadLines(sr);
         }
 
 
@@ -134,7 +130,6 @@ namespace AoC
             var (curitems, pos, acc) = (items, 0, ImmutableList<T>.Empty);
 
             while (true)
-            {
                 if (pos >= curitems.Count)
                 {
                     if (!stack.Any()) yield break;
@@ -149,7 +144,6 @@ namespace AoC
                     stack = stack.Push((curitems, pos, acc));
                     (curitems, pos, acc) = (curitems.RemoveAt(pos), 0, acc.Add(curitems[pos]));
                 }
-            }
         }
 
         public static IEnumerable<IList<T>> GetVariations<T>(IList<T> offers, int length)
@@ -177,7 +171,6 @@ namespace AoC
 
                 startIndices[length - 1]++;
                 for (int i = length - 1; i > 0; --i)
-                {
                     if (startIndices[i] >= offers.Count)
                     {
                         startIndices[i] = 0;
@@ -185,7 +178,6 @@ namespace AoC
                     }
                     else
                         break;
-                }
                 variationElements.Clear();
             }
         }
@@ -200,19 +192,14 @@ namespace AoC
         public static ulong GCD(ulong a, ulong b)
         {
             while (a != 0 && b != 0)
-            {
                 if (a > b)
                     a %= b;
                 else
                     b %= a;
-            }
 
             return a == 0 ? b : a;
         }
 
-        public static ulong LCM(ulong a, ulong b)
-        {
-            return a / GCD(a, b) * b;
-        }
+        public static ulong LCM(ulong a, ulong b) => a / GCD(a, b) * b;
     }
 }

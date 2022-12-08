@@ -17,7 +17,6 @@ namespace AoC
             factors.Add(1); factors.Add(value);
             int max = value;
             for (int i=2; i<max; i++)
-            {
                 if (value % i == 0)
                 {
                     int top = value / i;
@@ -26,7 +25,6 @@ namespace AoC
                     if (top == i) return factors.ToList();
                     factors.Add(top);
                 }
-            }
 
             return factors.ToList();
         }
