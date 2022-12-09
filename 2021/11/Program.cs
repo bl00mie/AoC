@@ -33,7 +33,7 @@ namespace AoC._2021._11
                 {
                     foreach(var flasher in flashers)
                     {
-                        var neighbors = grid.Neighbors(flasher, GridVector.AllDirs);
+                        var neighbors = grid.Neighbors(flasher, GridVector.DirsAll);
                         foreach (var (p,_) in neighbors)
                             grid[p]++;
                         grid[flasher] = int.MinValue;

@@ -26,7 +26,7 @@ namespace AoC._2022._8
             foreach (var (p, h) in f)
             {
                 if (f.IsEdge(p)) continue;
-                foreach (var v in GridVector.ESWN)
+                foreach (var v in GridVector.DirsESWN)
                 {
                     var n = p + v;
                     var vis = true;
@@ -55,7 +55,7 @@ namespace AoC._2022._8
             {
                 if (f.IsEdge(p)) continue;
                 var score = 1;
-                foreach (var v in GridVector.ESWN)
+                foreach (var v in GridVector.DirsESWN)
                 {
                     var n = p + v;
                     var vscore = 1;

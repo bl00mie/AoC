@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace AoC
@@ -143,6 +144,12 @@ namespace AoC
             this.y = y;
         }
 
+        public Coord(Coord c)
+        {
+            x = c.x;
+            y = c.y;
+        }
+
         public static Coord operator +(Coord p, GridVector v) => new(p.x + v.dx, p.y + v.dy);
 
         public override string ToString()
@@ -168,15 +175,25 @@ namespace AoC
             dy = p1.y - p2.y;
         }
 
+        public static GridVector operator +(GridVector v1, GridVector v2) => new(v1.dx + v2.dx, v1.dy + v2.dy);
         public static GridVector operator *(GridVector v, int magnitude) => new(v.dx*magnitude, v.dy*magnitude);
 
         public int GridMagnitude => dx + dy;
 
-        public static readonly IEnumerable<GridVector> ES = new GridVector[] { new(1, 0), new(0, -1) };
-        public static readonly IEnumerable<GridVector> ESWN = new GridVector[] { new(1, 0), new(0, -1), new(-1, 0), new(0, 1) }; 
-        public static readonly IEnumerable<GridVector> NESW = new GridVector[] { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) };
-        public static readonly IEnumerable<GridVector> Diag = new GridVector[] { new(1, 1), new(1, -1), new(-1, -1), new(1, -1) };
-        public static readonly IEnumerable<GridVector> AllDirs = new GridVector[] { new(-1, 1), new(0, 1), new(1, 1), new(1, 0), new(1, -1), new(0, -1), new(-1, -1), new(-1, 0) };
-        public static readonly IEnumerable<GridVector> AllPlusMe = new GridVector[] { new(-1, 1), new(0, 1), new(1, 1), new(-1, 0), new(0, 0), new(1, 0), new(-1, -1), new(0, -1), new(1, -1) };
+        public static readonly IEnumerable<GridVector> DirsES = new GridVector[] { E, S }.ToImmutableList();
+        public static readonly IEnumerable<GridVector> DirsESWN = new GridVector[] { E, S, W, N }.ToImmutableList(); 
+        public static readonly IEnumerable<GridVector> DirsNESW = new GridVector[] { N, E, S, W }.ToImmutableList();
+        public static readonly IEnumerable<GridVector> DirsDiag = new GridVector[] { NW, NE, SE, SW }.ToImmutableList();
+        public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W }.ToImmutableList();
+        public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0,0) }.ToImmutableList();
+
+        public static readonly GridVector N = new(0, 1);
+        public static readonly GridVector E = new(1, 0);
+        public static readonly GridVector S = new(0, -1);
+        public static readonly GridVector W = new(-1, 0);
+        public static readonly GridVector NE = N + E;
+        public static readonly GridVector SE = S + E;
+        public static readonly GridVector SW = S + W;
+        public static readonly GridVector NW = N + W;
     }
 }

@@ -43,7 +43,7 @@ namespace AoC._2021._15
                     if (p.x == XX - 1 && p.y == YY - 1)
                         break;
 
-                    foreach (var v in GridVector.ESWN)
+                    foreach (var v in GridVector.DirsESWN)
                     {
                         var x = p.x + v.dx;
                         var y = p.y + v.dy;
