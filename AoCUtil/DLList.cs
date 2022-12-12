@@ -182,6 +182,24 @@ namespace AoC
             _count--;
         }
 
+        public T RemoveHead()
+        {
+            if (_count == 0) throw new IndexOutOfRangeException();
+            var n = _head;
+            if (_count == 1)
+            {
+                _head = null;
+                _tail = null;
+            }
+            else
+            {
+                _head = _head.next;
+                _head.prev = null;
+            }
+            _count--;
+            return n.data;
+        }
+
         public T Pop()
         {
             if (_count == 0) throw new IndexOutOfRangeException();

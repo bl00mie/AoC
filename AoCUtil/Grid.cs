@@ -180,13 +180,6 @@ namespace AoC
 
         public int GridMagnitude => dx + dy;
 
-        public static readonly IEnumerable<GridVector> DirsES = new GridVector[] { E, S }.ToImmutableList();
-        public static readonly IEnumerable<GridVector> DirsESWN = new GridVector[] { E, S, W, N }.ToImmutableList(); 
-        public static readonly IEnumerable<GridVector> DirsNESW = new GridVector[] { N, E, S, W }.ToImmutableList();
-        public static readonly IEnumerable<GridVector> DirsDiag = new GridVector[] { NW, NE, SE, SW }.ToImmutableList();
-        public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W }.ToImmutableList();
-        public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0,0) }.ToImmutableList();
-
         public static readonly GridVector N = new(0, 1);
         public static readonly GridVector E = new(1, 0);
         public static readonly GridVector S = new(0, -1);
@@ -195,5 +188,14 @@ namespace AoC
         public static readonly GridVector SE = S + E;
         public static readonly GridVector SW = S + W;
         public static readonly GridVector NW = N + W;
+
+        public static readonly IEnumerable<GridVector> DirsES = new GridVector[] { E, S };
+        public static readonly IEnumerable<GridVector> DirsESWN = new GridVector[] { E, S, W, N };
+        public static readonly IEnumerable<GridVector> DirsESNW = new GridVector[] { E, S, N, W };
+        public static readonly IEnumerable<GridVector> DirsNESW = new GridVector[] { N, E, S, W };
+        public static readonly IEnumerable<GridVector> DirsDiag = new GridVector[] { NW, NE, SE, SW };
+        public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W };
+        public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0,0) };
+
     }
 }
