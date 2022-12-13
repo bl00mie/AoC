@@ -31,7 +31,7 @@ namespace AoC._2022._5
             foreach (var (count, from, to) in moves)
                 crates[to-1].Push(crates[from-1].Pop(count));
             
-            Ans(new string(crates.Select(col => col.Peek()).ToArray()));
+            Ans(string.Join("", crates.Select(col => col.Peek())));
             #endregion Part 1
 
             #region Part 2
@@ -39,7 +39,7 @@ namespace AoC._2022._5
             foreach (var (count, from, to) in moves)
                 crates[to-1].Push(crates[from-1].Pop(count).Reverse());
 
-            Ans2(new string(crates.Select(col=>col.Peek()).ToArray()));
+            Ans2(string.Join("", crates.Select(col=>col.Peek())));
             #endregion
         }
 

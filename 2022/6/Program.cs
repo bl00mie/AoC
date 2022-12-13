@@ -31,7 +31,7 @@ namespace AoC._2022._6
         {
             var ans = size;
             while (true)
-                if (input[(ans - size)..ans++].ToHashSet().Count == size)
+                if (input[(ans - size)..ans++].Distinct().Count() == size)
                     break;
             return ans - 1;
         }
