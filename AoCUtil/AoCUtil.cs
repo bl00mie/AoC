@@ -81,15 +81,39 @@ namespace AoC
             return groups;
         }
 
+        public static void FillLine(ISet<Coord> grid, Coord a, Coord b)
+        {
+            GridVector v;
+            if (a.x == b.x)
+            {
+                if (a.y < b.y) v = GridVector.N;
+                else v = GridVector.S;
+            }
+            else
+            {
+                if (a.x < b.x) v = GridVector.E;
+                else v = GridVector.W;
+            }
+            grid.Add(new(b));
+            while (a != b)
+            {
+                grid.Add(new(a));
+                a += v;
+            }
+        }
+
+        public static void PaintGrid(IEnumerable<Coord> grid, char filled = '█', char empty = ' ')
+            => PaintGrid(grid.Select(coord => (coord.x, coord.y)).ToHashSet(), filled, empty);
+
         public static void PaintGrid(IEnumerable<(int x, int y)> grid, char filled = '█', char empty = ' ')
         {
-            var X = grid.Max(xy => xy.x);
-            var Y = grid.Max(xy => xy.y);
+            var X = grid.Min(xy => xy.x); var XX = grid.Max(xy => xy.x);
+            var Y = grid.Min(xy => xy.y); var YY = grid.Max(xy => xy.y);
             var gridSB = new StringBuilder();
-            for (int y = 0; y <= Y; y++)
+            for (int y = Y; y <= YY; y++)
             {
                 var sb = new StringBuilder();
-                for (int x = 0; x <= X; x++)
+                for (int x = X; x <= XX; x++)
                     sb.Append(grid.Contains((x, y)) ? filled : empty);
                 gridSB.AppendLine(sb.ToString());
             }
