@@ -225,5 +225,10 @@ namespace AoC
         }
 
         public static ulong LCM(ulong a, ulong b) => a / GCD(a, b) * b;
+
+        public static int ManhattanDistance((int x, int y) a, (int x, int y) b)
+            => Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
+        public static int ManhattanDistance(Coord a, Coord b)
+            => ManhattanDistance((a.x, a.y), (b.x, b.y));
     }
 }
