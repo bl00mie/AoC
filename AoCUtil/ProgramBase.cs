@@ -11,7 +11,14 @@ namespace AoC
 
         public static void Ans(string s, int part = 1) {
             Stopwatch.Stop();
-            Debug.WriteLine($"Part {part}: {s} ({Stopwatch.ElapsedMilliseconds} ms)");
+            var ms = Stopwatch.ElapsedMilliseconds;
+            if (ms < 1000)
+                Debug.WriteLine($"Part {part}: {s} ({ms} ms)");
+            else
+            {
+                var timeStr = ms < 60_000 ? $"{ms / 1000.0}" : $"{ms / 60_000}:{(ms % 60_000) / 1000.0}";
+                Debug.WriteLine($"Part {part}: {s} ({timeStr})");
+            }
             Clipboard.Copy(s);
             Stopwatch.Restart();
         }
