@@ -230,5 +230,14 @@ namespace AoC
             => Math.Abs(a.x - b.x) + Math.Abs(a.y - b.y);
         public static int ManhattanDistance(Coord a, Coord b)
             => ManhattanDistance((a.x, a.y), (b.x, b.y));
+
+        public static bool Encloses(this (int a, int b) a, (int a, int b) b)
+            => (a.a <= b.a && a.b >= b.b);
+
+        public static bool Overlaps(this (int a, int b) a, (int a, int b) b)
+            =>  (a.a <= b.a && a.b >= b.a) ||
+                (a.a <= b.b && a.b >= b.b) ||
+                (b.a <= a.a && b.b >= a.a) ||
+                (b.a <= a.b && b.b >= a.b);
     }
 }
