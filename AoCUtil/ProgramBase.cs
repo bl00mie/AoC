@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using AoCUtil;
 using System.Collections.Generic;
+using System;
 
 namespace AoC
 {
@@ -11,12 +12,12 @@ namespace AoC
 
         public static void Ans(string s, int part = 1) {
             Stopwatch.Stop();
-            var ms = Stopwatch.ElapsedMilliseconds;
+            var ms = Stopwatch.Elapsed.TotalMilliseconds;
             if (ms < 1000)
                 Debug.WriteLine($"Part {part}: {s} ({ms} ms)");
             else
             {
-                var timeStr = ms < 60_000 ? $"{ms / 1000.0}" : $"{ms / 60_000}:{(ms % 60_000) / 1000.0}";
+                var timeStr = ms < 60_000 ? $"{ms / 1000.0}" : $"{Math.Floor(ms / 60_000)}:{(ms % 60_000) / 1000.0}";
                 Debug.WriteLine($"Part {part}: {s} ({timeStr})");
             }
             Clipboard.Copy(s);
