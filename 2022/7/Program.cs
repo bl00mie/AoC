@@ -11,7 +11,7 @@ namespace AoC._2022._7
             #region Stopwatch 
             Stopwatch.Start();
             #endregion
-            var input = AoCUtil.GetAocInput(2022, 7).Select(line => line.Split(' '));
+            var input = AoCUtil.GetAocInput(2022, 7).Select(l => l.Split(' '));
             #region Stopwatch
             Stopwatch.Stop();
             WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");

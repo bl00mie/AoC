@@ -19,21 +19,19 @@ namespace AoC._2022._6
             #endregion
 
             #region Part 1
-            Ans(FindSequence(input));
+            Ans(Find(input));
             #endregion Part 1
 
             #region Part 2
-            Ans2(FindSequence(input, 14));
+            Ans2(Find(input, 14));
             #endregion
         }
 
-        static int FindSequence(string input, int size=4)
+        static int Find(string input, int sz=4)
         {
-            var ans = size;
-            while (true)
-                if (input[(ans - size)..ans++].Distinct().Count() == size)
-                    break;
-            return ans - 1;
+            var p = sz;
+            while (input[(p - sz)..p++].Distinct().Count() != sz) ;
+            return p - 1;
         }
     }
 }

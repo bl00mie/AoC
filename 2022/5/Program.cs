@@ -10,42 +10,24 @@ namespace AoC._2022._5
     {
         static void Main()
         {
-            #region input
-            #region Stopwatch 
-            Stopwatch.Start();
-            #endregion
+            var inputGroups = AoCUtil.GroupInput(2022, 5);
+            var top = inputGroups.First().ToArray();
+            var moves = inputGroups.Last().Extract<(int count, int from, int to)>(@"move (\d+) from (\d+) to (\d+)").ToArray();
 
-            var inputGroups = AoCUtil.GroupInput(2022, 5).ToArray();
-            var top = inputGroups[0].ToArray();
-            var moves = inputGroups[1].Extract<(int count, int from, int to)>(@"move (\d+) from (\d+) to (\d+)");
-
-            #region Stopwatch
-            Stopwatch.Stop();
-            WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");
-            Stopwatch.Restart();
-            #endregion
-            #endregion
-
-            #region Part 1
             var crates = ParseCrates(top);
+            var crates2 = ParseCrates(top);
             foreach (var (count, from, to) in moves)
-                crates[to-1].Push(crates[from-1].Pop(count));
-            
+            {
+                crates[to - 1].Push(crates[from - 1].Pop(count));
+                crates2[to - 1].Push(crates2[from - 1].Pop(count).Reverse());
+            }            
             Ans(string.Join("", crates.Select(col => col.Peek())));
-            #endregion Part 1
-
-            #region Part 2
-            crates = ParseCrates(top);
-            foreach (var (count, from, to) in moves)
-                crates[to-1].Push(crates[from-1].Pop(count).Reverse());
-
-            Ans2(string.Join("", crates.Select(col=>col.Peek())));
-            #endregion
+            Ans2(string.Join("", crates2.Select(col=>col.Peek())));
         }
 
-        static List<Stack<char>> ParseCrates(string[] input)
+        static Stack<char>[] ParseCrates(string[] input)
         {
-            var crates = new List<Stack<char>> { new(), new(), new(), new(), new(), new(), new(), new(), new()};
+            var crates = Enumerable.Range(0, 9).Select(_ => new Stack<char>()).ToArray();
             for (int i = 0; i < 9; i++)
                 for (int j = input.Length - 2; j >= 0; j--)
                     if (input[j][4 * i + 1] != ' ') 
