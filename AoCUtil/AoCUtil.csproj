@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NetFabric.DoublyLinkedList" Version="3.0.0" />
+    <PackageReference Include="Nito.Collections.Deque" Version="1.1.1" />
     <PackageReference Include="RegExtract" Version="1.0.18" />
   </ItemGroup>
 </Project>

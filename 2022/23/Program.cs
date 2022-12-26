@@ -20,6 +20,7 @@ namespace AoC._2022._23
                     .Where(t => t.v == '#')
                     .Select(t => t.Item2)
                 ).ToHashSet();
+
             #region Stopwatch
             Stopwatch.Stop();
             WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");
