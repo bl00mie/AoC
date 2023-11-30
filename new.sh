@@ -10,7 +10,7 @@ day=$1
 if [ $# -gt 1 ]; then 
     year=$2
 else
-    year=2022
+    year=2023
 fi
 
 cd $year
