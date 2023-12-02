@@ -38,7 +38,7 @@ namespace AoC._2023._2
                         if (v > min[color]) min[color] = v;
                     }
                 if (possible) ans += id;
-                ans2 += min.Values.Aggregate((x, y) => x * y);
+                ans2 += min["red"] * min["green"] * min["blue"];
             }
 
             Ans(ans);
