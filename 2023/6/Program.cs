@@ -21,6 +21,9 @@ namespace AoC._2023._6
             for (int i = 0; i < input.First().Length; i++)
                 races.Add((long.Parse(input.First()[i]), long.Parse(input.Last()[i])));
 
+            var t = long.Parse(string.Join("", input.First()));
+            var d = long.Parse(string.Join("", input.Last()));
+
             #region Stopwatch
             Stopwatch.Stop();
             WL($"Input processed in {Stopwatch.ElapsedMilliseconds} ms");
@@ -28,18 +31,9 @@ namespace AoC._2023._6
             #endregion
             #endregion
 
-            #region Part 1
-            var ans = 1L;
-            foreach (var r in races)
-                ans *= Winners(r.t, r.d);
-            Ans(ans);
-            #endregion Part 1
+            Ans(races.Select(r => Winners(r.t, r.d)).Aggregate(1L, (a,b) => a*b));
 
-            #region Part 2
-            var t = long.Parse(string.Join("", input.First()));
-            var d = long.Parse(string.Join("", input.Last()));
             Ans2(Winners(t,d));
-            #endregion
         }
 
         static long Winners(long t, long d)
