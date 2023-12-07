@@ -13,6 +13,10 @@ namespace AoC
             this.def = def;
             _storeOnMissingLookup = storeOnMissingLookup;
         }
+        public AoCDictionary(Dictionary<TKey, TValue> dict, bool storeOnMissingLookup = false) : base(dict)
+        {
+            _storeOnMissingLookup = storeOnMissingLookup;
+        }
 
         new public TValue this[TKey key]
         { 
