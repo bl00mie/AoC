@@ -22,15 +22,15 @@ namespace AoC._2023._9
             #endregion
             #endregion
 
-            static int derive(List<int> ints)
+            static int Extrapolate(List<int> ints)
             {
                 if (ints.All(i => i == 0)) return 0;
-                return ints[^1] + derive(ints.Pairwise().Select(p => p.b - p.a).ToList());
+                return ints[^1] + Extrapolate(ints.Pairwise().Select(p => p.b - p.a).ToList());
             }
 
-            Ans(input.Sum(derive));
+            Ans(input.Sum(Extrapolate));
             foreach (var x in input) x.Reverse();
-            Ans2(input.Sum(derive));
+            Ans2(input.Sum(Extrapolate));
         }
     }
 }
