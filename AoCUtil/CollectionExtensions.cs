@@ -9,7 +9,7 @@ namespace AoCUtil
     {
         public static IEnumerable<T> Pop<T>(this Stack<T> stack, int count)
         {
-            foreach (var _ in Enumerable.Range(0, count))
+            while(count-- > 0) { }
                 yield return stack.Pop();
         }
 
@@ -36,14 +36,6 @@ namespace AoCUtil
             return (X, XX, Y, YY);
         }
 
-        public static IEnumerable<(T a, T b)> Pairwise<T>(this IEnumerable<T> input)
-        {
-            T prev = input.First();
-            foreach (var b in input.Skip(1))
-            {
-                yield return (prev, b);
-                prev = b;
-            }
-        }
+        public static IEnumerable<(T a, T b)> Pairwise<T>(this IEnumerable<T> input) => input.Skip(1).Zip(input);
     }
 }
