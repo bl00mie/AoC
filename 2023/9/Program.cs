@@ -13,12 +13,7 @@ namespace AoC._2023._9
             Stopwatch.Start();
             #endregion
 
-            var input = AoCUtil.GetAocInput(2023, 9)
-                .Select(s =>
-                    s.Split(' ')
-                    .Select(int.Parse)
-                    .ToList())
-                .ToList();
+            var input = AoCUtil.GetAocInput(2023, 9).Select(s => s.GetInts(' ').ToList()).ToList();
             
             #region Stopwatch
             Stopwatch.Stop();
@@ -27,33 +22,15 @@ namespace AoC._2023._9
             #endregion
             #endregion
 
-            var ans = 0;
-            var ans2 = 0;
-            var stack = new Stack<List<int>>();
-            foreach (var v in input)
+            static int derive(List<int> ints)
             {
-                stack.Clear();
-                stack.Push(v);
-                while (true)
-                {
-                    var vals = stack.Peek();
-                    var nl = vals.Pairwise().Select(p => p.b - p.a).ToList();
-                    if (!nl.Any(x => x != 0)) break;
-                    stack.Push(nl);
-                }
-                var diff = 0;
-                var ldiff = 0;
-                while(stack.Count > 0)
-                {
-                    var vals = stack.Pop();
-                    diff += vals.Last();
-                    ldiff = vals[0] - ldiff;
-                }
-                ans += diff;
-                ans2 += ldiff;
+                if (ints.All(i => i == 0)) return 0;
+                return ints[^1] + derive(ints.Pairwise().Select(p => p.b - p.a).ToList());
             }
-            Ans(ans);
-            Ans(ans2);
+
+            Ans(input.Sum(derive));
+            foreach (var x in input) x.Reverse();
+            Ans2(input.Sum(derive));
         }
     }
 }
