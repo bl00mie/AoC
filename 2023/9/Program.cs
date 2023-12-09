@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using RegExtract;
+using AoCUtil;
 
 namespace AoC._2023._9
 {
@@ -14,7 +13,12 @@ namespace AoC._2023._9
             Stopwatch.Start();
             #endregion
 
-            var input = AoCUtil.GetAocInput(2023, 9);
+            var input = AoCUtil.GetAocInput(2023, 9)
+                .Select(s =>
+                    s.Split(' ')
+                    .Select(int.Parse)
+                    .ToList())
+                .ToList();
             
             #region Stopwatch
             Stopwatch.Stop();
@@ -22,16 +26,34 @@ namespace AoC._2023._9
             Stopwatch.Restart();
             #endregion
             #endregion
-            
-            #region Part 1
 
-            Ans("");
-            #endregion Part 1
-
-            #region Part 2
-
-            //Ans("", 2);
-            #endregion
+            var ans = 0;
+            var ans2 = 0;
+            var stack = new Stack<List<int>>();
+            foreach (var v in input)
+            {
+                stack.Clear();
+                stack.Push(v);
+                while (true)
+                {
+                    var vals = stack.Peek();
+                    var nl = vals.Pairwise().Select(p => p.b - p.a).ToList();
+                    if (!nl.Any(x => x != 0)) break;
+                    stack.Push(nl);
+                }
+                var diff = 0;
+                var ldiff = 0;
+                while(stack.Count > 0)
+                {
+                    var vals = stack.Pop();
+                    diff += vals.Last();
+                    ldiff = vals[0] - ldiff;
+                }
+                ans += diff;
+                ans2 += ldiff;
+            }
+            Ans(ans);
+            Ans(ans2);
         }
     }
 }
