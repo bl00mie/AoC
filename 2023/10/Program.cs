@@ -73,7 +73,7 @@ namespace AoC._2023._10
                 input[p.Key] = cross % 2 == 0 ? 'O' : 'I';
             }
 
-            Ans(input.Count(p => p.Value == 'I'));
+            Ans2(input.Count(p => p.Value == 'I'));
             #endregion
         }
     }
