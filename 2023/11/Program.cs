@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using RegExtract;
+﻿using System.Linq;
+using AoCUtil;
 
 namespace AoC._2023._11
 {
@@ -14,7 +12,7 @@ namespace AoC._2023._11
             Stopwatch.Start();
             #endregion
 
-            var input = AoCUtil.GetAocInput(2023, 11);
+            var input = AoCUtil.GetAocInput(2023, 11).ToArray();
             
             #region Stopwatch
             Stopwatch.Stop();
@@ -22,16 +20,37 @@ namespace AoC._2023._11
             Stopwatch.Restart();
             #endregion
             #endregion
-            
-            #region Part 1
 
-            Ans("");
-            #endregion Part 1
+            var A = new[] { 1, 2, 3, 4 };
+            var B = A.Skip(4).ToList();
 
-            #region Part 2
+            foreach (var part in Enumerable.Range(1,2))
+            {
+                var ER = Enumerable.Range(0, input.Length)
+                    .Where(i => input[i].All(c => c == '.'))
+                    .ToHashSet();
+                var EC = Enumerable.Range(0, input[0].Length)
+                    .Where(i => input.All(l => l[i] == '.'))
+                    .ToHashSet();
+                var G = input.SelectMany((l, y) => 
+                    l.Select((c, x) => (x, y, c))
+                    .Where(t => t.c == '#')
+                    .Select(t => (t.x, t.y)))
+                    .ToList();
 
-            //Ans("", 2);
-            #endregion
+                var delta = part == 1 ? 1 : 999_999;
+                var ans = G.ForAllPairs<(int x, int y), long>((a, b) =>
+                {
+                    var d = 0;
+                    for (int x = a.x; x != b.x; x += a.x < b.x ? 1 : -1)
+                        d += 1 + (EC.Contains(x) ? delta : 0);
+                    for (int y = a.y; y != b.y; y += a.y < b.y ? 1 : -1)
+                        d += 1 + (ER.Contains(y) ? delta : 0);
+                    return d;
+                }).ToArray().Sum();
+
+                Ans(ans, part);
+            }
         }
     }
 }

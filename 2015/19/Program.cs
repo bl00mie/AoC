@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AoCUtil;
 
 namespace AoC._2015._19
 {
@@ -54,7 +55,7 @@ namespace AoC._2015._19
                 {
                     target = molecule;
                     mutations = 0;
-                    replacements = AoCUtil.Shuffle(replacements).ToList();
+                    replacements = replacements.Shuffle().ToList();
                 }
             }
             Ans(mutations, 2);

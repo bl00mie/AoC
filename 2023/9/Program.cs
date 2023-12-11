@@ -25,7 +25,7 @@ namespace AoC._2023._9
             static int Extrapolate(List<int> ints)
             {
                 if (ints.All(i => i == 0)) return 0;
-                return ints[^1] + Extrapolate(ints.Pairwise().Select(p => p.b - p.a).ToList());
+                return ints[^1] + Extrapolate(ints.SlidingWindow().Select(p => p.b - p.a).ToList());
             }
 
             Ans(input.Sum(Extrapolate));

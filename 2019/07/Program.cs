@@ -2,6 +2,7 @@
 using System.Linq;
 using AoC.VM;
 using AoC.VM.IntCode;
+using AoCUtil;
 
 namespace AoC._2019._07
 {
@@ -12,14 +13,16 @@ namespace AoC._2019._07
             #region input
 
             var input = AoCUtil.GetAocInput(2019, 07).First().GetLongs().ToArray();
-            var perms = AoCUtil.GetPermutations<int>(Enumerable.Range(0,5));
+            var perms = Enumerable.Range(0,5).GetPermutations<int>();
 
             #endregion input
 
             #region Part 1
 
-            VM_2019<PhaseIO> vm = new VM_2019<PhaseIO>(input);
-            vm.IO = new PhaseIO();
+            VM_2019<PhaseIO> vm = new(input)
+            {
+                IO = new PhaseIO()
+            };
             long max = long.MinValue;
             foreach (var perm in perms)
             {
@@ -39,7 +42,7 @@ namespace AoC._2019._07
 
             #region Part 2
 
-            perms = AoCUtil.GetPermutations<int>(Enumerable.Range(5, 5));
+            perms = Enumerable.Range(5, 5).GetPermutations();
             VM_2019<ChainIO>[] vms = new VM_2019<ChainIO>[5];
             for (int i=4; i>=0; i--)
             {

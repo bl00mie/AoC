@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RegExtract;
+using AoCUtil;
 
 namespace AoC._2021._19
 {
@@ -82,7 +83,7 @@ namespace AoC._2021._19
             WL($"[{string.Join(',', items)}]");
         }
 
-        static int[][] perms = AoCUtil.GetPermutations(new[] { 0, 1, 2 }).Select(ie => ie.ToArray()).ToArray();
+        static int[][] perms = new[] { 0, 1, 2 }.GetPermutations().Select(ie => ie.ToArray()).ToArray();
         static Dictionary<((int x, int y, int z) pos, int o), (int x, int y, int  z)> orientated = new ();
         static (int x, int y, int z) Orientate((int x, int y, int z) pos, int o)
         {
