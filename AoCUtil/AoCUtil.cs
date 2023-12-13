@@ -13,12 +13,12 @@ namespace AoC
 {
     public static class AoCUtil
     {
-        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null)
+        public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null, string filePath = null)
         {
             return GetAocInputAsync(year, day, sessionCookie).Result;
         }
 
-        public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie = null)
+        public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie = null, string filePath = null)
         {
             if (sessionCookie == null)
             {
@@ -27,8 +27,8 @@ namespace AoC
                 sessionCookie = File.ReadLines("../../session_cookie").First();
             }
 
-            string filepath = $"../../inputs/{year}_{day}";
-            if (!File.Exists(filepath))
+            filePath ??= $"../../inputs/{year}_{day}";
+            if (!File.Exists(filePath))
             {
                 var baseAddress = new Uri($"https://adventofcode.com/{year}/day/{day}/input");
                 var cookieContainer = new CookieContainer();
@@ -39,12 +39,12 @@ namespace AoC
                 var response = await client.GetAsync(baseAddress);
                 if (response.IsSuccessStatusCode)
                 {
-                    using var writer = new StreamWriter(filepath);
+                    using var writer = new StreamWriter(filePath);
                     writer.Write(await response.Content.ReadAsStringAsync());
                     writer.Flush();
                 }
             }
-            return File.ReadLines(filepath);
+            return File.ReadLines(filePath);
         }
 
         public static IEnumerable<string> ReadLines(StreamReader streamReader)

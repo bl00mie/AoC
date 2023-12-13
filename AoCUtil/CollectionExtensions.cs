@@ -1,10 +1,9 @@
-﻿using AoC;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace AoCUtil
+namespace AoC
 {
     public static class CollectionExtensions
     {
