@@ -64,6 +64,11 @@ namespace AoC
         public static IEnumerable<IEnumerable<string>> GroupInput(int year, int day, string sessionCookie = null)
         {
             var input = GetAocInput(year, day, sessionCookie);
+            return GroupInput(input);
+        }
+
+        public static IEnumerable<IEnumerable<string>> GroupInput(IEnumerable<string> input)
+        {
             var groups = new List<IEnumerable<string>>();
             var group = new List<string>();
             foreach (var line in input)
