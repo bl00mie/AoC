@@ -36,7 +36,7 @@ namespace AoC
             return (X, XX, Y, YY);
         }
 
-        public static IEnumerable<(T a, T b)> SlidingWindow<T>(this IEnumerable<T> input) => input.Skip(1).Zip(input);
+        public static IEnumerable<(T a, T b)> SlidingWindow<T>(this IEnumerable<T> input) => input.Zip(input.Skip(1));
 
         public static IEnumerable<IEnumerable<T>> GetPermutationsRecursive<T>(this IEnumerable<T> list, int length)
         {

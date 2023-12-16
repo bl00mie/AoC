@@ -1,13 +1,17 @@
-﻿namespace AoC2016.Solutions;
+﻿using RegExtract;
+
+namespace AoC2016.Solutions;
 
 internal class Day01 : BaseDay2016
 {
     List<(char turn, int blocks)> steps;
     
-    public Day01() : base()
+    public override void ProcessInput()
     {
-        steps = Input.First().Split(", ").Select(v => (v[0], int.Parse(v[1..]))).ToList();
+        steps = Input.Extract<List<(char, int)>>(@"(([LR])(\d+),? ?)+").First();
     }
+
+
 
     static readonly (int dx, int dy)[] dirs = new[]
     {
@@ -17,7 +21,7 @@ internal class Day01 : BaseDay2016
         (-1, 0)
     };
 
-    public override async ValueTask<string> Solve_1()
+    public override string Solve_1()
     {
         int x = 0;
         int y = 0;
@@ -31,7 +35,7 @@ internal class Day01 : BaseDay2016
         return $"{Math.Abs(x) + Math.Abs(y)}";
     }
 
-    public override async ValueTask<string> Solve_2()
+    public override string Solve_2()
     {
         int x = 0;
         int y = 0;

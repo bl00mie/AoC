@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RegExtract" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\AoCHelper\src\AoCHelper\AoCHelper.csproj" />
     <ProjectReference Include="..\AoCUtil\AoCUtil.csproj" />
   </ItemGroup>

@@ -2,9 +2,6 @@
 {
     internal abstract class BaseDay2016 : BaseDay
     {
-        public BaseDay2016()
-        {
-            Task.Run(() => Initialize(2016)).Wait();
-        }
+        protected override int Year => 2016;
     }
 }
