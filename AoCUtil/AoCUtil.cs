@@ -127,13 +127,13 @@ namespace AoC
 
         public static void PaintGrid<T>(Dictionary<(int x, int y), T> grid, string empty = " ", string delim = null)
         {
-            var X = grid.Keys.Max(xy => xy.x);
-            var Y = grid.Keys.Max(xy => xy.y);
+            var X = grid.Keys.Min(xy => xy.x); var XX = grid.Keys.Max(xy => xy.x);
+            var Y = grid.Keys.Min(xy => xy.y); var YY = grid.Keys.Max(xy => xy.y);
             var gridSB = new StringBuilder();
-            for (int y = 0; y <= Y; y++)
+            for (int y = Y; y <= YY; y++)
             {
-                var row = new string[X + 1];
-                for (int x = 0; x <= X; x++)
+                var row = new string[XX - X + 1];
+                for (int x = X; x <= XX; x++)
                     row[x] = grid.ContainsKey((x, y)) ? grid[(x, y)].ToString() : empty;
                 gridSB.AppendLine(string.Join(delim, row));
             }
