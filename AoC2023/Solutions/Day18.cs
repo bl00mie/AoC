@@ -3,13 +3,6 @@
     internal class Day18 : BaseDay2023
     {
         (char dir, int count, string hex)[] digPlan = [];
-        Dictionary<char, GridVector> dirs = new Dictionary<char, GridVector>
-        {
-            ['U'] = GridVector.S,
-            ['R'] = GridVector.E,
-            ['D'] = GridVector.N,
-            ['L'] = GridVector.W
-        };
         public override void ProcessInput()
         {
             digPlan = Input.Extract<(char dir, int count, string hex)>(@"([UDLR]) (\d+) \(#([0-9a-f]+)\)").ToArray();
@@ -17,49 +10,47 @@
 
         public override dynamic Solve_1()
         {
-            Dictionary<char, GridVector> dirs = new Dictionary<char, GridVector>
+            Dictionary<char, (int dx, int dy)> dirs = new()
             {
-                ['U'] = GridVector.S,
-                ['R'] = GridVector.E,
-                ['D'] = GridVector.N,
-                ['L'] = GridVector.W
+                ['U'] = (0, -1),
+                ['R'] = (1, 0),
+                ['D'] = (0, 1),
+                ['L'] = (-1, 0)
             };
-            return CountDigs(digPlan.Select(dig => (dig.dir, dig.count)), dirs);
+            return CountDigs(digPlan.Select(dig => (dirs[dig.dir], dig.count)));
         }
 
         public override dynamic Solve_2()
         {
-            Dictionary<char, GridVector> dirs = new Dictionary<char, GridVector>
+            Dictionary<char, (int dx, int dy)> dirs = new()
             {
-                ['0'] = GridVector.E,
-                ['1'] = GridVector.N,
-                ['2'] = GridVector.W,
-                ['3'] = GridVector.S
+                ['0'] = (1, 0),
+                ['1'] = (0, 1),
+                ['2'] = (-1, 0),
+                ['3'] = (0, -1)
             };
 
-            return CountDigs(digPlan.Select(x => (x.hex[^1], Convert.ToInt32(x.hex[..^1], 16))), dirs);
+            return CountDigs(digPlan.Select(x => (dirs[x.hex[^1]], Convert.ToInt32(x.hex[..^1], 16))));
         }
 
-        double CountDigs(IEnumerable<(char dirChar, int count)> digs, Dictionary<char, GridVector> dirs)
+        static double CountDigs(IEnumerable<((int dx, int dy) dir, int count)> digs)
         {
             // dig points around the circumference
-            var b = 0L;
+            var border = 0L;
             List<(int x, int y)> points = [(0, 0)];
-            foreach (var (dc, n) in digs)
+            foreach (var (dir, n) in digs)
             {
-                b += n;
+                border += n;
                 var (x, y) = points[^1];
-                var dir = dirs[dc];
                 points.Add((x + dir.dx * n, y + dir.dy * n));
             }
 
             var len = points.Count;
             // Shoelace formula area
-            var a = 0L;
-            for (int i = 0; i < len; i++)
-                a += (((long)points[i].y) * (((long)points[i == 0 ? len - 1 : i].x) - ((long)points[i == (len - 1) ? 0 : i + 1].x)));
+            var A = points.Zip(points.Skip(1).Append(points[0]))
+                .Sum(pair => ((long)pair.First.y + pair.Second.y) * (pair.First.x - pair.Second.x)) / 2;
             // pick's theorem
-            return a - b / 2 + 1 + b;
+            return A + 1 + border/2;
         }
 
     }
