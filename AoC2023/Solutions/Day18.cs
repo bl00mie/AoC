@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace AoC2023.Solutions
+﻿namespace AoC2023.Solutions
 {
     internal class Day18 : BaseDay2023
     {
@@ -57,7 +55,7 @@ namespace AoC2023.Solutions
 
             var len = points.Count;
             // Shoelace formula area
-            double a = 0.0;
+            var a = 0L;
             for (int i = 0; i < len; i++)
                 a += (((long)points[i].y) * (((long)points[i == 0 ? len - 1 : i].x) - ((long)points[i == (len - 1) ? 0 : i + 1].x)));
             // pick's theorem
