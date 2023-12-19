@@ -2,13 +2,6 @@
 {
     internal class Day01 : BaseDay2023
     {
-        List<string> input = [];
-
-        public override void ProcessInput()
-        {
-            input = [.. Input];
-        }
-
         static readonly string[] words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
         static int CalibrationValues(string s, bool p2 = false)
         {
@@ -30,9 +23,9 @@
         }
 
         public override string Solve_1()
-            => input.Sum(l => CalibrationValues(l)).ToString();
+            => Input.Sum(l => CalibrationValues(l)).ToString();
 
         public override string Solve_2()
-            => input.Sum(l => CalibrationValues(l, true)).ToString();
+            => Input.Sum(l => CalibrationValues(l, true)).ToString();
     }
 }

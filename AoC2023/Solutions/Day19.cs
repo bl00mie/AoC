@@ -88,7 +88,7 @@
                 if (xl > xh || ml > mh || al > ah || sl > sh) continue;
                 if (wf == "A")
                 {
-                    ans += (1L * (xh - xl + 1) * (mh - ml + 1) * (ah - al + 1) * (sh - sl + 1));
+                    ans += ((xh - xl + 1L) * (mh - ml + 1) * (ah - al + 1) * (sh - sl + 1));
                     continue;
                 }
                 if (wf == "R")
