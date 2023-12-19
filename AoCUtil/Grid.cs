@@ -176,9 +176,20 @@ namespace AoC
         }
 
         public static GridVector operator +(GridVector v1, GridVector v2) => new(v1.dx + v2.dx, v1.dy + v2.dy);
+        public static (int x, int y) operator +((int x, int y) point, GridVector v) => (point.x + v.dx, point.y + v.dy);
+
         public static GridVector operator *(GridVector v, int magnitude) => new(v.dx*magnitude, v.dy*magnitude);
 
         public int GridMagnitude => dx + dy;
+
+        public static readonly GridVector U = new(0, -1);
+        public static readonly GridVector R = new(1, 0);
+        public static readonly GridVector D = new(0, 1);
+        public static readonly GridVector L = new(-1, 0);
+        public static readonly GridVector UR = U + R;
+        public static readonly GridVector DR = D + R;
+        public static readonly GridVector DL = D + L;
+        public static readonly GridVector UL = U + L;
 
         public static readonly GridVector N = new(0, 1);
         public static readonly GridVector E = new(1, 0);
@@ -196,6 +207,21 @@ namespace AoC
         public static readonly IEnumerable<GridVector> DirsDiag = new GridVector[] { NW, NE, SE, SW };
         public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W };
         public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0,0) };
+
+        public static readonly ImmutableDictionary<string, GridVector> Lookup = new Dictionary<string, GridVector>
+        {
+            ["U"] = U,
+            ["R"] = R,
+            ["D"] = D,
+            ["L"] = L,
+
+            ["N"] = N,
+            ["E"] = E,
+            ["S"] = S,
+            ["W"] = W,
+
+
+        }.ToImmutableDictionary();
 
     }
 }
