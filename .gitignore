@@ -410,3 +410,6 @@ session_cookie
 .vscode/*
 
 *.py
+
+**/inputs/
+**/Inputs/
