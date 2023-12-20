@@ -408,3 +408,5 @@ session_cookie
 
 .vscode
 .vscode/*
+
+*.py
