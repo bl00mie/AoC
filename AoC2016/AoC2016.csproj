@@ -17,10 +17,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RegExtract" Version="2.0.0-tags-2-0-0-beta-3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\AoCHelper\src\AoCHelper\AoCHelper.csproj" />
     <ProjectReference Include="..\AoCUtil\AoCUtil.csproj" />
   </ItemGroup>

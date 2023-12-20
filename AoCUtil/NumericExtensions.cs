@@ -28,5 +28,8 @@ namespace AoC
 
             return factors.ToList();
         }
+
+        public static ulong LCM(this IEnumerable<ulong> values)
+            => values.Aggregate((ulong)1L, (a, b) => (a * b) / AoC.AoCUtil.GCD(a, b));
     }
 }
