@@ -14,22 +14,20 @@ namespace AoC
     public static class AoCUtil
     {
         public static IEnumerable<string> GetAocInput(int year, int day, string sessionCookie = null, string filePath = null)
-        {
-            return GetAocInputAsync(year, day, sessionCookie).Result;
-        }
+            => GetAocInputAsync(year, day, sessionCookie).Result;
 
         public static async Task<IEnumerable<string>> GetAocInputAsync(int year, int day, string sessionCookie = null, string filePath = null)
         {
-            if (sessionCookie == null)
-            {
-                if (!File.Exists("../../session_cookie"))
-                    throw new FileNotFoundException("Couldn't locate session_cookie file. Aborting");
-                sessionCookie = File.ReadLines("../../session_cookie").First();
-            }
 
             filePath ??= $"../../inputs/{year}_{day}";
             if (!File.Exists(filePath))
             {
+                if (sessionCookie == null)
+                {
+                    if (!File.Exists("../../session_cookie"))
+                        throw new FileNotFoundException("Couldn't locate session_cookie file. Aborting");
+                    sessionCookie = File.ReadLines("../../session_cookie").First();
+                }
                 var baseAddress = new Uri($"https://adventofcode.com/{year}/day/{day}/input");
                 var cookieContainer = new CookieContainer();
                 using var handler = new HttpClientHandler() { CookieContainer = cookieContainer };
@@ -62,28 +60,21 @@ namespace AoC
 
 
         public static IEnumerable<IEnumerable<string>> GroupInput(int year, int day, string sessionCookie = null)
-        {
-            var input = GetAocInput(year, day, sessionCookie);
-            return GroupInput(input);
-        }
+            => GroupInput(GetAocInput(year, day, sessionCookie));
 
         public static IEnumerable<IEnumerable<string>> GroupInput(IEnumerable<string> input)
         {
-            var groups = new List<IEnumerable<string>>();
-            var group = new List<string>();
+            List<string> group = new();
             foreach (var line in input)
-            {
-                if (string.IsNullOrWhiteSpace(line))
+                if (!string.IsNullOrWhiteSpace(line))
+                    group.Add(line);
+                else
                 {
-                    groups.Add(group);
-                    group = new List<string>();
-                    continue;
+                    yield return group;
+                    group = new();
                 }
-                group.Add(line);
-            }
             if (group.Count > 0)
-                groups.Add(group);
-            return groups;
+                yield return group;
         }
 
         public static void FillLine(ISet<Coord> grid, Coord a, Coord b)
@@ -141,7 +132,6 @@ namespace AoC
             Debug.WriteLine(gridSB);
         }
 
-        
         public static ulong GCD(ulong a, ulong b)
         {
             while (a != 0 && b != 0)
@@ -168,8 +158,5 @@ namespace AoC
                 (a.a <= b.b && a.b >= b.b) ||
                 (b.a <= a.a && b.b >= a.a) ||
                 (b.a <= a.b && b.b >= a.b);
-
-        public static string[] Split(string s, string delim = " ")
-            => s.Split(delim);
     }
 }
