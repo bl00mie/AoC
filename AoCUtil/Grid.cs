@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -69,20 +70,21 @@ namespace AoC
 
         public static bool Yes((Coord p, T v) mine, (Coord p, T v) theirs) => true;
 
-        public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null, bool defaultIfMissing = false)
+        public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null, bool defaultIfMissing = false, bool wrap = false)
         {
+            if (!ContainsCoord(point))
+                Console.WriteLine("yerp");
             test ??= Yes;
 
-            var neighbors = new List<(Coord p, T v)>();
-            var v = this[point];
+            var v = wrap ? this[(point.x%W + W)%W, (point.y%H+H)%H] : this[point];
+
             foreach (var dir in directions)
             {
-                var location = point + dir;
-                if ((ContainsCoord(location) || defaultIfMissing) && test((point, v), (location, this[location])))
-                    neighbors.Add((location, this[location]));
+                var neighbor = point + dir;
+                var nValue = wrap ? this[(neighbor.x%W + W) % W, (neighbor.y%H + H) % H] : this[neighbor];
+                if ((ContainsCoord(neighbor) || defaultIfMissing) && test((point, v), (neighbor, nValue)))
+                    yield return (neighbor, nValue);
             }
-
-            return neighbors;
         }
 
         public void Render(string delim = "")
