@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AoC
 {
@@ -6,8 +7,18 @@ namespace AoC
     {
         public TValue def = default;
         private bool _storeOnMissingLookup;
+        private bool _hasDefaultConstructor;
 
-        public AoCDictionary() : base() { }
+        public AoCDictionary() : base()
+        { 
+            _hasDefaultConstructor = typeof(TValue).GetConstructor(Type.EmptyTypes) != null;
+        }
+
+        public AoCDictionary(bool storeOnMissingLookup) : this()
+        {
+            _storeOnMissingLookup = storeOnMissingLookup;
+        }
+
         public AoCDictionary(TValue def, bool storeOnMissingLookup = false) : base()
         {
             this.def = def;
@@ -16,7 +27,10 @@ namespace AoC
         public AoCDictionary(Dictionary<TKey, TValue> dict, bool storeOnMissingLookup = false) : base(dict)
         {
             _storeOnMissingLookup = storeOnMissingLookup;
+            _hasDefaultConstructor = typeof(TValue).GetConstructor(Type.EmptyTypes) != null;
         }
+
+        private TValue GetDefault() => _hasDefaultConstructor ? (TValue) Activator.CreateInstance(typeof(TValue))  : def; 
 
         new public TValue this[TKey key]
         { 
@@ -24,11 +38,12 @@ namespace AoC
             {
                 if (!ContainsKey(key))
                 {
+                    var res = GetDefault();
                     if (!_storeOnMissingLookup)
                     {
-                        return def;
+                        return res;
                     }
-                    Add(key, def);
+                    Add(key, res);
                 }
                 return base[key];
             }
