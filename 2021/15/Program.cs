@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AoCUtil.Collections;
 
 namespace AoC._2021._15
 {
@@ -28,7 +29,7 @@ namespace AoC._2021._15
                 var YY = Y * muly;
                 var q = new PriorityQueue<(Coord, int), int>();
                 var visited = new HashSet<Coord>();
-                var risks = new AoCDictionary<Coord, int>();
+                var risks = new DefaultDictionary<Coord, int>();
                 q.Enqueue((new(0, 0), 0), 0);
 
                 while (q.Count > 0)

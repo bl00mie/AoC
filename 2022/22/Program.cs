@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AoCUtil.Collections;
 
 namespace AoC._2022._22
 {

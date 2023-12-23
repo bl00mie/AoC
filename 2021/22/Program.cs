@@ -26,7 +26,7 @@ namespace AoC._2021._22
             #endregion
 
             #region Part 1
-            var allCubes = new AoCDictionary<(int x, int y, int z), bool>(false, false);
+            var allCubes = new DefaultDictionary<(int x, int y, int z), bool>(false, false);
             foreach (var (cmd, x1, x2, y1, y2, z1, z2) in input)
             {
                 var cb = new Cuboid(x1,x2, y1, y2, z1, z2);

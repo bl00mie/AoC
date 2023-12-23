@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AoCUtil;
+using AoCUtil.Collections;
 using Nito.Collections;
 
 namespace AoC._2022._23
@@ -40,7 +41,7 @@ namespace AoC._2022._23
             var i = 1;
             while(true)
             {
-                var proposals = new AoCDictionary<Coord, List<Coord>>((Dictionary<Coord, List<Coord>>)null, false);
+                var proposals = new DefaultDictionary<Coord, List<Coord>>((Dictionary<Coord, List<Coord>>)null, false);
                 foreach (var p in grid)
                     if (GridVector.DirsAll.Any(v => grid.Contains(p + v)))
                         foreach (var cone in cones)

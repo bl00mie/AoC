@@ -1,4 +1,6 @@
-﻿namespace AoC2023.Solutions
+﻿using AoCUtil.Collections;
+
+namespace AoC2023.Solutions
 {
     internal class Day03 : BaseDay2023
     {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 
-namespace AoC
+namespace AoCUtil.Collections
 {
     public class Grid<T> : IEnumerable<(Coord p, T v)>
     {
@@ -37,16 +36,16 @@ namespace AoC
 
         public virtual T this[int x, int y]
         {
-            get => this[new(x,y)];
+            get => this[new(x, y)];
 
-            set => this[new(x,y)] = value;
+            set => this[new(x, y)] = value;
         }
 
         public virtual T this[Coord coord]
         {
             get
             {
-                if(!_grid.ContainsKey(coord))
+                if (!_grid.ContainsKey(coord))
                 {
                     if (!StoreOnMissingLookup)
                         return DefaultValue;
@@ -72,23 +71,21 @@ namespace AoC
 
         public IEnumerable<(Coord p, T v)> Neighbors(Coord point, IEnumerable<GridVector> directions, NeighborTest test = null, bool defaultIfMissing = false, bool wrap = false)
         {
-            if (!ContainsCoord(point))
-                Console.WriteLine("yerp");
             test ??= Yes;
 
-            var v = wrap ? this[(point.x%W + W)%W, (point.y%H+H)%H] : this[point];
+            var v = wrap ? this[(point.x % W + W) % W, (point.y % H + H) % H] : this[point];
 
             foreach (var dir in directions)
             {
                 var neighbor = point + dir;
-                var nValue = wrap ? this[(neighbor.x%W + W) % W, (neighbor.y%H + H) % H] : this[neighbor];
+                var nValue = wrap ? this[(neighbor.x % W + W) % W, (neighbor.y % H + H) % H] : this[neighbor];
                 if ((ContainsCoord(neighbor) || defaultIfMissing) && test((point, v), (neighbor, nValue)))
                     yield return (neighbor, nValue);
             }
         }
 
         public void Render(string delim = "")
-            => AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
+            => AoC.AoCUtil.PaintGrid(_grid.ToDictionary(p => (p.Key.x, p.Key.y), p => p.Value), delim: delim);
 
         public void Clear() => _grid.Clear();
 
@@ -103,7 +100,7 @@ namespace AoC
 
         public HistoryGrid(IEnumerable<IEnumerable<T>> input) : base(input)
         {
-            History = new Stack<Dictionary<Coord,T>>();
+            History = new Stack<Dictionary<Coord, T>>();
         }
 
         public override T this[int x, int y]
@@ -180,7 +177,7 @@ namespace AoC
         public static GridVector operator +(GridVector v1, GridVector v2) => new(v1.dx + v2.dx, v1.dy + v2.dy);
         public static (int x, int y) operator +((int x, int y) point, GridVector v) => (point.x + v.dx, point.y + v.dy);
 
-        public static GridVector operator *(GridVector v, int magnitude) => new(v.dx*magnitude, v.dy*magnitude);
+        public static GridVector operator *(GridVector v, int magnitude) => new(v.dx * magnitude, v.dy * magnitude);
 
         public int GridMagnitude => dx + dy;
 
@@ -208,7 +205,7 @@ namespace AoC
         public static readonly IEnumerable<GridVector> DirsNESW = new GridVector[] { N, E, S, W };
         public static readonly IEnumerable<GridVector> DirsDiag = new GridVector[] { NW, NE, SE, SW };
         public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W };
-        public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0,0) };
+        public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0, 0) };
 
         public static readonly ImmutableDictionary<string, GridVector> Lookup = new Dictionary<string, GridVector>
         {

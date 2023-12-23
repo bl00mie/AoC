@@ -25,12 +25,12 @@ namespace AoC._2021._14
             #endregion
 
             template = input[0].First();
-            var pairs = new AoCDictionary<string, long>();
+            var pairs = new DefaultDictionary<string, long>();
             for (int p = 0; p < template.Length-1; p++)
                 pairs[$"{template[p]}{template[p + 1]}"]++;
             for (int i=0; i<40; i++)
             {
-                var next = new AoCDictionary<string, long>();
+                var next = new DefaultDictionary<string, long>();
                 foreach (var pair in pairs.Keys)
                 {
                     next[$"{pair[0]}{rules[pair]}"] += pairs[pair];

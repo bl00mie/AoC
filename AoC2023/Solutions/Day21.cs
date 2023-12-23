@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using AoCUtil.Collections;
 
 namespace AoC2023.Solutions
 {

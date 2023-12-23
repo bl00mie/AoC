@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using AoCUtil.Collections;
+using System.Collections.Immutable;
 using System.Diagnostics;
 
 namespace AoC2023.Solutions
@@ -36,7 +37,7 @@ namespace AoC2023.Solutions
             foreach (var (id, game) in Games)
             {
                 var draws = game.Split("; ");
-                var min = new AoCDictionary<string, int>(0, true);
+                var min = new DefaultDictionary<string, int>(0, true);
                 foreach (var draw in draws)
                     foreach (var (v, color) in draw.Split(", ").Extract<(int, string)>(@"(\w+) (\w+)"))
                         if (v > min[color]) min[color] = v;

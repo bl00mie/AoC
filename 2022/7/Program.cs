@@ -20,7 +20,7 @@ namespace AoC._2022._7
             #endregion
 
             #region Part 1
-            var dirs = new AoCDictionary<string, int>(0, true);
+            var dirs = new DefaultDictionary<string, int>(0, true);
             var path = new List<string>();
             foreach (var cmd in input)
                 if (cmd[1] == "ls" || cmd[0] == "dir") continue;

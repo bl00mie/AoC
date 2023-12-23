@@ -43,7 +43,7 @@ namespace AoC._2021._19
                     for (int o = 0; o < 48 && found < 0; o++)
                     {
                         var adjustedUnknown = scanners[u].Select(ub => Orientate(ub, o));
-                        var matches = new AoCDictionary<(int x, int y, int z), int>();
+                        var matches = new DefaultDictionary<(int x, int y, int z), int>();
                         foreach (var ub in adjustedUnknown)
                             foreach (var kb in knownBeacons)
                                 matches[(kb.x - ub.x, kb.y - ub.y, kb.z - ub.z)]++;

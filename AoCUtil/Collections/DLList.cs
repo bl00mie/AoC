@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AoC
+namespace AoCUtil.Collections
 {
     public class DLList<T> : IList<T>
     {
@@ -167,7 +167,7 @@ namespace AoC
                 _head = _head.next;
                 _head.prev = null;
             }
-            else if (index == _count -1)
+            else if (index == _count - 1)
             {
                 _tail = _tail.prev;
                 _tail.next = null;

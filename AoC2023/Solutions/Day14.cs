@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using AoCUtil.Collections;
 
 namespace AoC2023.Solutions
 {

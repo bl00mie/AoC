@@ -1,7 +1,6 @@
 ﻿namespace AoC2016
 {
-    internal abstract class BaseDay2016 : BaseDay
+    internal abstract class BaseDay2016() : BaseDay(2016)
     {
-        protected override int Year => 2016;
     }
 }

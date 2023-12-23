@@ -1,11 +1,13 @@
-﻿namespace AoC2023.Solutions
+﻿using AoCUtil.Collections;
+
+namespace AoC2023.Solutions
 {
     internal class Day20 : BaseDay2023
     {
         readonly Dictionary<string, List<string>> Outputs = [];
         readonly Dictionary<string, char> Types = [];
-        readonly AoCDictionary<string, List<string>> Inputs = new(true);
-        readonly AoCDictionary<string, Dictionary<string, string>> Pulses = new(true);
+        readonly DefaultDictionary<string, List<string>> Inputs = new(true);
+        readonly DefaultDictionary<string, Dictionary<string, string>> Pulses = new(true);
 
         public override void ProcessInput()
         {
@@ -44,7 +46,7 @@
             var Q = new DLList<(string id, string from, string type)>();
             var on = new HashSet<string>();
             var previous = new Dictionary<string, int>();
-            var count = new AoCDictionary<string, int>();
+            var count = new DefaultDictionary<string, int>();
             for (int i=0; i<1000; i++)
             {
                 Q.Add(("broadcaster", "button", "lo"));
@@ -90,7 +92,7 @@
             var Q = new DLList<(string id, string from, string type)>();
             var on = new HashSet<string>();
             var previous = new Dictionary<string, ulong>();
-            var count = new AoCDictionary<string, int>(true);
+            var count = new DefaultDictionary<string, int>(true);
             var watch = Inputs[Inputs["rx"][0]];
             var cycles = new List<ulong>();
 

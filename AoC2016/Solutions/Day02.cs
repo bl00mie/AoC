@@ -1,4 +1,4 @@
-﻿using AoC;
+﻿using AoCUtil.Collections;
 using System.Text;
 
 namespace AoC2016.Solutions

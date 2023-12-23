@@ -1,4 +1,6 @@
-﻿namespace AoC2023.Solutions
+﻿using AoCUtil.Collections;
+
+namespace AoC2023.Solutions
 {
     internal class Day04 : BaseDay2023
     {
@@ -20,7 +22,7 @@
         {
             var ans = 0;
             var matches = new Dictionary<int, int>();
-            var copies = new AoCDictionary<int, int>();
+            var copies = new DefaultDictionary<int, int>();
             foreach (var (cn, w, m) in input)
             {
                 var match = w.Intersect(m).Count();
@@ -37,7 +39,7 @@
         public override dynamic Solve_2()
         {
             var matches = new Dictionary<int, int>();
-            var copies = new AoCDictionary<int, int>();
+            var copies = new DefaultDictionary<int, int>();
             foreach (var (cn, w, m) in input)
             {
                 var match = w.Intersect(m).Count();
@@ -50,7 +52,7 @@
             while (copies.Count > 0)
             {
                 ans2 += copies.Sum(x => x.Value);
-                var next = new AoCDictionary<int, int>();
+                var next = new DefaultDictionary<int, int>();
                 foreach (var x in copies)
                 {
                     var num = x.Value;

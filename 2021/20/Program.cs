@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AoCUtil.Collections;
 
 namespace AoC._2021._20
 {
@@ -15,7 +16,7 @@ namespace AoC._2021._20
 
             var input = AoCUtil.GroupInput(2021, 20);
             var alg = input.First().First();
-            AoCDictionary<Coord, char> grid = new AoCDictionary<Coord, char>('.');
+            DefaultDictionary<Coord, char> grid = new DefaultDictionary<Coord, char>('.');
             var img = input.Last().ToList();
             for (int y = 0; y < img.Count; y++)
                 for (int x = 0; x < img[0].Length; x++)
@@ -32,7 +33,7 @@ namespace AoC._2021._20
             #endregion
             #endregion
 
-            var nextGrid = new AoCDictionary<Coord, char>() { def = '#' };
+            var nextGrid = new DefaultDictionary<Coord, char>() { def = '#' };
             for (int i = 0; i < 50; i++)
             {
                 L--; R++;
@@ -57,9 +58,9 @@ namespace AoC._2021._20
             Ans2(grid.Where(entry => entry.Value == '#').Count());
         }
 
-        static void swap(ref AoCDictionary<Coord, char> a, ref AoCDictionary<Coord, char> b)
+        static void swap(ref DefaultDictionary<Coord, char> a, ref DefaultDictionary<Coord, char> b)
         {
-            AoCDictionary<Coord, char> temp = a;
+            DefaultDictionary<Coord, char> temp = a;
             a = b;
             b = temp;
         }

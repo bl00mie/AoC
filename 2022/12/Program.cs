@@ -1,4 +1,5 @@
-﻿using NetFabric;
+﻿using AoCUtil.Collections;
+using NetFabric;
 using System.Collections.Generic;
 using System.Linq;
 

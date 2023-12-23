@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AoCUtil.Collections;
 
 namespace AoC._2022._14
 {
@@ -78,7 +79,7 @@ namespace AoC._2022._14
             return ans;
         }
 
-        static void drawr(AoCDictionary<Coord, char> grid, int l, int r, int b)
+        static void drawr(DefaultDictionary<Coord, char> grid, int l, int r, int b)
         {
             var w = r - l;
             var sb = new StringBuilder();
