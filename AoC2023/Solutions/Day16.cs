@@ -2,7 +2,7 @@
 
 namespace AoC2023.Solutions
 {
-    internal class Day16 : BaseDay2023
+    internal class Day16() : BaseDay(2023)
     {
         Grid<char> grid = new();
         public override void ProcessInput()

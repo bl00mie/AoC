@@ -2,7 +2,7 @@
 
 namespace AoC2023.Solutions
 {
-    internal class Day20 : BaseDay2023
+    internal class Day20() : BaseDay(2023)
     {
         readonly Dictionary<string, List<string>> Outputs = [];
         readonly Dictionary<string, char> Types = [];

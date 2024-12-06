@@ -3,7 +3,7 @@ using AoCUtil.Collections;
 
 namespace AoC2023.Solutions
 {
-    internal class Day21 : BaseDay2023
+    internal class Day21() : BaseDay(2023)
     {
         Grid<char> map = new();
         int R;

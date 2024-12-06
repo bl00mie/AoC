@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AoC2023.Solutions
 {
-    internal class Day12 : BaseDay2023
+    internal class Day12() : BaseDay(2023)
     {
         (string springs, string contiguousDamage)[] input = [];
         readonly ImmutableArray<char> springChars = ['.', '#'];

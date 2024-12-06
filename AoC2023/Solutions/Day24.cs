@@ -55,6 +55,7 @@ namespace AoC2023.Solutions
                 var hsvy = (ArithExpr)ctx.MkNumeral(Hailstones[i].v.dy, ctx.MkIntSort());
                 var hsz = (ArithExpr)ctx.MkNumeral(Hailstones[i].p.z, ctx.MkIntSort());
                 var hsvz = (ArithExpr)ctx.MkNumeral(Hailstones[i].v.dz, ctx.MkIntSort());
+
                 solver.Assert(ctx.MkEq(x + times[i] * vx - hsx - times[i] * hsvx, zero));
                 solver.Assert(ctx.MkEq(y + times[i] * vy - hsy - times[i] * hsvy, zero));
                 solver.Assert(ctx.MkEq(z + times[i] * vz - hsz - times[i] * hsvz, zero));

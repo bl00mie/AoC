@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day09 : BaseDay2023
+    internal class Day09() : BaseDay(2023)
     {
         static int Extrapolate(int[] ints)
         {

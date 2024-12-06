@@ -4,7 +4,7 @@ using AoCUtil.Collections;
 
 namespace AoC2023.Solutions
 {
-    internal class Day14 : BaseDay2023
+    internal class Day14() : BaseDay(2023)
     {
         char[][] Map = [];
 

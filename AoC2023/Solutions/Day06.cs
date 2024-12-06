@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day06 : BaseDay2023
+    internal class Day06() : BaseDay(2023)
     {
         List<string[]> input = [];
         readonly List<(long t, long d)> races = [];

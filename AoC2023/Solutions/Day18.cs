@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day18 : BaseDay2023
+    internal class Day18() : BaseDay(2023)
     {
         (char dir, int count, string hex)[] digPlan = [];
         public override void ProcessInput()

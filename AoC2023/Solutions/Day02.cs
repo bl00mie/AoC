@@ -1,10 +1,9 @@
-﻿using AoCUtil.Collections;
-using System.Collections.Immutable;
-using System.Diagnostics;
+﻿using System.Collections.Immutable;
+using AoCUtil.Collections;
 
 namespace AoC2023.Solutions
 {
-    internal class Day02 : BaseDay2023
+    internal class Day02() : BaseDay(2023)
     {
 
         List<(int id, string game)> Games = [];

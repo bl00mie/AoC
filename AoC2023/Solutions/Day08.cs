@@ -2,7 +2,7 @@
 
 namespace AoC2023.Solutions
 {
-    internal class Day08 : BaseDay2023
+    internal class Day08() : BaseDay(2023)
     {
         Directions dirs = new(Enumerable.Empty<char>());
         Dictionary<string, (string l, string r)> maps = [];

@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day07 : BaseDay2023
+    internal class Day07() : BaseDay(2023)
     {
         (string hand, int bid)[] hands = [];
         public override void ProcessInput()

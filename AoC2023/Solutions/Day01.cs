@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day01 : BaseDay2023
+    internal class Day01() : BaseDay(2023)
     {
         static readonly string[] words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
         static int CalibrationValues(string s, bool p2 = false)

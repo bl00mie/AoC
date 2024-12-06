@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day13 : BaseDay2023
+    internal class Day13() : BaseDay(2023)
     {
         List<List<string>> groups = [];
 

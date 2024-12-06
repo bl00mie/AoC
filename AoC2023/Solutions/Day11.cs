@@ -1,6 +1,6 @@
 ﻿namespace AoC2023.Solutions
 {
-    internal class Day11 : BaseDay2023
+    internal class Day11() : BaseDay(2023)
     {
         long Expand(int delta)
         {

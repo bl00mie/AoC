@@ -2,7 +2,7 @@
 
 namespace AoC2023.Solutions
 {
-    internal class Day04 : BaseDay2023
+    internal class Day04() : BaseDay(2023)
     {
         List<(int cn, HashSet<int> w, HashSet<int> m)> input = [];
         public override void ProcessInput()

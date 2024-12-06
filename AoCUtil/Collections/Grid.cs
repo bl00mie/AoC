@@ -178,6 +178,7 @@ namespace AoCUtil.Collections
         public static (int x, int y) operator +((int x, int y) point, GridVector v) => (point.x + v.dx, point.y + v.dy);
 
         public static GridVector operator *(GridVector v, int magnitude) => new(v.dx * magnitude, v.dy * magnitude);
+        public static GridVector operator *(int magnitude, GridVector v) => new(v.dx * magnitude, v.dy * magnitude);
 
         public int GridMagnitude => dx + dy;
 
@@ -207,6 +208,8 @@ namespace AoCUtil.Collections
         public static readonly IEnumerable<GridVector> DirsAll = new GridVector[] { NW, N, NE, E, SE, S, SW, W };
         public static readonly IEnumerable<GridVector> DirsAllPlusMe = new GridVector[] { NW, N, NE, E, SE, S, SW, W, new(0, 0) };
 
+        public static readonly IEnumerable<GridVector> DirsURDL = new GridVector[] { U, R, D, L };
+
         public static readonly ImmutableDictionary<string, GridVector> Lookup = new Dictionary<string, GridVector>
         {
             ["U"] = U,
@@ -218,8 +221,6 @@ namespace AoCUtil.Collections
             ["E"] = E,
             ["S"] = S,
             ["W"] = W,
-
-
         }.ToImmutableDictionary();
 
     }

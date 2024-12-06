@@ -2,7 +2,7 @@
 
 namespace AoC2023.Solutions
 {
-    internal class Day10 : BaseDay2023
+    internal class Day10() : BaseDay(2023)
     {
         Dictionary<Coord, char> grid = [];
         HashSet<Coord> path = [];
