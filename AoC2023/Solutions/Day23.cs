@@ -2,7 +2,7 @@
 using Nito.Collections;
 using System.Collections.Immutable;
 
-namespace AoC2023.Solutions.Solutions
+namespace AoC2023.Solutions
 {
     internal class Day23() : BaseDay(2023)
     {

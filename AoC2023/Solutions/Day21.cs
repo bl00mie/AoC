@@ -41,7 +41,7 @@ namespace AoC2023.Solutions
             DLList<(int tr, int tc, int sr, int sc, int d)> Q = [(0, 0, startRow, startColumn, 0)];
             while (Q.Count > 0)
             {
-                var (tr, tc, r, c, d) = Q.RemoveHead();
+                var (tr, tc, r, c, d) = Q.PopLeft();
                 if (r < 0) { tr--; r += R; }
                 if (r >= R) { tr++; r -= R; }
                 if (c < 0) { tc--; c += C; }

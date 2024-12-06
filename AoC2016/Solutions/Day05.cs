@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace AoC2016.Solutions.Solutions
+namespace AoC2016.Solutions
 {
     internal class Day05 : BaseDay2016
     {

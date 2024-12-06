@@ -15,20 +15,7 @@ namespace AoCUtil.Collections
         public DLList(IEnumerable<T> items)
         {
             foreach (var item in items)
-            {
-                var n = new DLNode<T>(item);
-                if (_head == null)
-                {
-                    _head = n;
-                    _tail = n;
-                }
-                else
-                {
-                    _tail.next = n;
-                    _tail = n;
-                }
-                _count++;
-            }
+                Add(item);
         }
 
 
@@ -79,6 +66,23 @@ namespace AoCUtil.Collections
                 _tail.next = node;
                 node.prev = _tail;
                 _tail = node;
+            }
+            _count++;
+        }
+
+        public void AddLeft(T item)
+        {
+            var node = new DLNode<T>(item);
+            if (_count == 0)
+            {
+                _head = node;
+                _tail = node;
+            }
+            else
+            {
+                node.next = _head;
+                _head.prev = node;
+                _head = node;
             }
             _count++;
         }
@@ -182,7 +186,7 @@ namespace AoCUtil.Collections
             _count--;
         }
 
-        public T RemoveHead()
+        public T PopLeft()
         {
             if (_count == 0) throw new IndexOutOfRangeException();
             var n = _head;
@@ -224,15 +228,10 @@ namespace AoCUtil.Collections
         }
     }
 
-    internal class DLNode<T>
+    internal record DLNode<T>(T item)
     {
-        internal T data;
+        internal T data = item;
         internal DLNode<T> next = null;
         internal DLNode<T> prev = null;
-
-        public DLNode(T item)
-        {
-            data = item;
-        }
     }
 }

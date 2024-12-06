@@ -1,7 +1,4 @@
-﻿using AoC;
-using RegExtract;
-
-namespace AoC2016.Solutions.Solutions
+﻿namespace AoC2016.Solutions
 {
     internal class Day07 : BaseDay2016
     {

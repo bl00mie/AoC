@@ -1,4 +1,4 @@
-﻿namespace AoC2016.Solutions.Solutions
+﻿namespace AoC2016.Solutions
 {
     internal class Day06 : BaseDay2016
     {

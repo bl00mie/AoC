@@ -1,6 +1,6 @@
 ﻿using RegExtract;
 
-namespace AoC2016.Solutions.Solutions
+namespace AoC2016.Solutions
 {
     internal class Day09() : BaseDay(2016)
     {

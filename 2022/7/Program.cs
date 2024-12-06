@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AoCUtil.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AoC._2022._7

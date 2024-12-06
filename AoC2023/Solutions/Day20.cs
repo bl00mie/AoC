@@ -52,7 +52,7 @@ namespace AoC2023.Solutions
                 Q.Add(("broadcaster", "button", "lo"));
                 while(Q.Count > 0)
                 {
-                    var (id, from, type) = Q.RemoveHead();
+                    var (id, from, type) = Q.PopLeft();
                     if (type == "lo") lo++;
                     else hi++;
 
@@ -101,7 +101,7 @@ namespace AoC2023.Solutions
                 Q.Add(("broadcaster", "button", "lo"));
                 while (Q.Count > 0)
                 {
-                    var (id, from, type) = Q.RemoveHead();
+                    var (id, from, type) = Q.PopLeft();
                     if (type == "lo")
                     {
                         if (previous.TryGetValue(id, out ulong pv) && count[id] == 2 && watch.Contains(id))

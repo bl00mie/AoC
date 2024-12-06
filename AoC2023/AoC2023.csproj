@@ -18,6 +18,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Z3" Version="4.12.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\AoCHelper\src\AoCHelper\AoCHelper.csproj" />
     <ProjectReference Include="..\AoCUtil\AoCUtil.csproj" />
   </ItemGroup>

@@ -1,8 +1,6 @@
-﻿using AoCUtil.Collections;
-using RegExtract;
-using System.Text;
+﻿using RegExtract;
 
-namespace AoC2016.Solutions.Solutions
+namespace AoC2016.Solutions
 {
     internal class Day08() : BaseDay(2016)
     {

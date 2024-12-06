@@ -22,6 +22,7 @@
 
                 await Solver.Solve(indexes.Where(i => i < uint.MaxValue));
             }
+            Console.ReadLine();
         }
     }
 }
